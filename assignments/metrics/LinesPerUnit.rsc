@@ -14,24 +14,6 @@ public list[str] filterL(list[str] vals, fun) {
   return [ x | x <- vals, fun(x)];
 }
 
-public bool emptyString(str s) {
-  return (size(s) != 0);
-}
-
-/* privates */
-
-private list[str] trimFunctionStart(list[str] fun) {
-  return delete(fun, 0);
-}
-
-private list[str] trimFunctionEnd(list[str] fun) {
-  return reverse(drop(1, reverse(fun)));
-}
-
-private list[str] trimEmptyString(list[str] met) {
-  return filterL(met, emptyString);
-}
-
 private str trimSinglelineComments(str line) {
   if(/^[\/]{2}/ := trim(line)) {
     return "";
@@ -45,16 +27,34 @@ private str trimSinglelineComments(str line) {
   return line;
 }
 
-private list[str] trimMultilineComments(list[str] met) {
+public str deleteBetween(str line, int startIndex, int endIndex) {
+  return substring(line, 0, startIndex) + substring(line, endIndex, size(line));
+}
+
+public str trimMultilineComment(str line) {
   int commentStart = findFirst(line, "/**");
-  return met;
+  int commentEnd = findFirst(line, "*/");
+  if(commentStart != -1) {
+    if(commentEnd != -1 ) {
+      return deleteBetween(line, commentStart, commentEnd+2);
+    } else {
+      return deleteBetween(line, commentStart, size(line));
+    }
+  }
+  if(commentEnd != -1) {
+    return deleteBetween(line, 0, commentEnd+2);
+  }
+  if(startsWith(trim(line), "*")) {
+    return "";
+  }
+  return line;
 }
 
 public list[str] trimMethod(loc met) {
   list[str] funBody = readFileLines(met);
-  funBody = trimEmptyString(funBody);
   funBody = mapper(funBody, trimSinglelineComments);
-  funBody = filterL(funBody, bool (str f) { return size(f) != 0; });
+  funBody = mapper(funBody, trimMultilineComment);
+  funBody = filterL(funBody, bool (str f) { return size(trim(f)) != 0; });
   return funBody;
 }
 

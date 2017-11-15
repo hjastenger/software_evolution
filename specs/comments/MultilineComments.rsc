@@ -14,7 +14,6 @@ import specs::helpers::Loc;
 import specs::helpers::M3;
 
 loc FIX_FOLDER = |cwd:///specs/fixtures/multiline|;
-
 str CLASS_NAME = "MultilineComments";
 
 M3 m3 = loadM3(FIX_FOLDER);
@@ -28,6 +27,30 @@ public void multilineTest() {
   testMethodBody(lines, 3, methodName);
 }
 
+public void codeAfterMultiline() {
+  str methodName = "codeAfterMultiline";
+  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 4, methodName);
+}
+
+public void codeBeforeMultiline() {
+  str methodName = "codeBeforeMultiline";
+  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 4, methodName);
+}
+
+public void codeBeforeAndAfterMultiline() {
+  str methodName = "codeBeforeAndAfterMultiline";
+  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 5, methodName);
+}
+
 public void multilineRunner() {
   multilineTest();
+  codeAfterMultiline();
+  codeBeforeMultiline();
+  codeBeforeAndAfterMultiline();
 }

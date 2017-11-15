@@ -6,9 +6,9 @@ Repository for the course Software Evolution
 
 # how to run
 
-1. start Rascal REPL in root dir: `java -Xmx1G -Xss32m -jar <rascal_jar_location>`
-2. import spec runner i.e. `import specs::comments::MultineComments;` 
-3. invoke runner i.e. `runner();`
+1. Start Rascal REPL in root dir: `java -Xmx1G -Xss32m -jar <rascal_jar_location>`
+2. Import spec runner i.e. `import specs::comments::MultineComments;` 
+3. Invoke runner i.e. `multilineRunner();`
 
 # notes:
 1. re-importing a spec after changing an imported module in that spec does not

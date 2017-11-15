@@ -39,13 +39,14 @@ private str trimSinglelineComments(str line) {
   /* int commentStart = /\/[\*]{2}/ := trim(line && /\*\// := line) { */
   int commentStart = findFirst(line, "/**");
   int commentLast = findLast(line, "*/");
-  if(commentStart >= 0 && commentLast >= 1) {
+  if(commentStart != -1 && commentLast != -1) {
     return trim(substring(line, commentLast+1, size(line)-1));
   }
   return line;
 }
 
 private list[str] trimMultilineComments(list[str] met) {
+  int commentStart = findFirst(line, "/**");
   return met;
 }
 

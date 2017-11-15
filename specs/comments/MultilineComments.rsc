@@ -42,6 +42,13 @@ public void runnerMultilineSameLine () {
   testMethodBody(lines, 4, methodName);
 }
 
+public void runnerSamelineMultiComment () {
+  str methodName = "multipleMultineLineSameLine";
+  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 4, methodName);
+}
+
 public void runnerMultilineSameLineEmptyLine () {
   str methodName = "multilineSameLineEmptyLine";
   loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
@@ -58,6 +65,7 @@ public void runnerSingleLine () {
 
 public void runner() {
   runnerMultilineSameLine();
+  runnerSamelineMultiComment();
   runnerMultilineSameLineEmptyLine();
   runnerSingleLine();
 }

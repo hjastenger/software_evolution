@@ -19,6 +19,11 @@ public class MultilineComments {
     System.out.println("Hello, World");
   }
 
+  public static void multipleMultineLineSameLine() { 
+    /** first */ /** second */ System.out.println("There's still code on this line");
+    System.out.println("Hello, World");
+  }
+
   public static void multilineSameLineEmptyLine() {
     /** Just random multine comments in Javascript */
     System.out.println("Hello, World");

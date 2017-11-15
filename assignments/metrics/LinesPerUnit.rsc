@@ -36,6 +36,12 @@ private str trimSinglelineComments(str line) {
   if(/^[\/]{2}/ := trim(line)) {
     return "";
   }
+  /* int commentStart = /\/[\*]{2}/ := trim(line && /\*\// := line) { */
+  int commentStart = findFirst(line, "/**");
+  int commentLast = findLast(line, "*/");
+  if(commentStart >= 0 && commentLast >= 1) {
+    return trim(substring(line, commentLast+1, size(line)-1));
+  }
   return line;
 }
 
@@ -46,9 +52,7 @@ private list[str] trimMultilineComments(list[str] met) {
 public list[str] trimMethod(loc met) {
   list[str] funBody = readFileLines(met);
   funBody = trimEmptyString(funBody);
-  /* fun = trimFunctionStart(fun); */
   funBody = mapper(funBody, trimSinglelineComments);
-  /* fun = trimFunctionEnd(fun); */
   funBody = filterL(funBody, bool (str f) { return size(f) != 0; });
   return funBody;
 }

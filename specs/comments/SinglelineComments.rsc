@@ -10,6 +10,7 @@ import ParseTree;
 import Exception;
 
 import assignments::metrics::LinesPerUnit;
+import assignments::helpers::Henk;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
@@ -20,6 +21,13 @@ str CLASS_NAME = "SinglelineComments";
 M3 m3 = loadM3(FIX_FOLDER);
 
 public int bodySize(list[str] body) = size(body);
+
+public void parenthesesBelow () {
+  str methodName = "parenthesesBelow";
+  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 5, methodName);
+}
 
 public void codeAfterCommentTest () {
   str methodName = "codeAfterComment";
@@ -49,9 +57,14 @@ public void singlelineCommentTest () {
   testMethodBody(lines, 3, methodName);
 }
 
+list[&T] testables = [
+  parenthesesBelow,
+  codeAfterCommentTest,
+  codeAfterDoubleCommentTest,
+  codeBelowCommentTest,
+  singlelineCommentTest
+];
+
 public void singlelineRunner() {
-  codeAfterCommentTest();
-  codeAfterDoubleCommentTest();
-  codeBelowCommentTest();
-  singlelineCommentTest();
+  mapF(testables, void (void() fn) { fn(); });
 }

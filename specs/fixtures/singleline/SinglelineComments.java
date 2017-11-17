@@ -4,6 +4,12 @@ public class SinglelineComments {
     System.out.println("Hello, World");
   }
 
+  public static void parenthesesBelow()
+  { 
+    /** Commend */ System.out.println("There's still code on this line");
+    System.out.println("Hello, World");
+  }
+
   public static void codeAfterComment() { 
     /** Commend */ System.out.println("There's still code on this line");
     System.out.println("Hello, World");

@@ -10,48 +10,45 @@ import ParseTree;
 import Exception;
 
 import assignments::metrics::LinesPerUnit;
-import assignments::helpers::Henk;
+import assignments::helpers::Defaults;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
-loc FIX_FOLDER = |cwd:///specs/fixtures/multiline|;
 str CLASS_NAME = "MultilineComments";
-
-M3 m3 = loadM3(FIX_FOLDER);
 
 public int bodySize(list[str] body) = size(body);
 
-public void multilineTest() {
+public void multilineTest(M3 file) {
   str methodName = "multiline";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 3, methodName);
 }
 
-public void parenthesesBelow() {
+public void parenthesesBelow(M3 file) {
   str methodName = "parenthesesBelow";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeAfterMultiline() {
+public void codeAfterMultiline(M3 file) {
   str methodName = "codeAfterMultiline";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeBeforeMultiline() {
+public void codeBeforeMultiline(M3 file) {
   str methodName = "codeBeforeMultiline";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeBeforeAndAfterMultiline() {
+public void codeBeforeAndAfterMultiline(M3 file) {
   str methodName = "codeBeforeAndAfterMultiline";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 5, methodName);
 }
@@ -64,6 +61,9 @@ list[&T] testables = [
   codeBeforeMultiline
 ];
 
-public void multilineRunner() {
-  mapF(testables, void (void() fn) { fn(); });
+public void multilineRunner(file) {
+  println("<CLASS_NAME>:");
+  M3 m3 = loadM3(file);
+  mapF(testables, void (void(M3) fn) { fn(m3); });
+  println();
 }

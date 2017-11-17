@@ -5,11 +5,6 @@ import String;
 import List;
 import lang::java::m3::Core;
 
-public list[loc] getMethods(){
-  M3 m3 = load();
-  return [e | e <- m3.containment[|java+class:///HelloWorld|], e.scheme == "java+method"];
-}
-
 public list[str] filterL(list[str] vals, fun) {
   return [ x | x <- vals, fun(x)];
 }

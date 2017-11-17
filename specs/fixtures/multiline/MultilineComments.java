@@ -14,6 +14,14 @@ public class MultilineComments {
     System.out.println("Hello, World");
   }
 
+  public static void parenthesesBelow()
+  {
+    /** Multiline commment
+     *
+     */
+    System.out.println("Hello, World");
+  }
+
   public static void codeAfterMultiline() {
     /** Multiline comment
      *

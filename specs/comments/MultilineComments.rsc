@@ -10,6 +10,7 @@ import ParseTree;
 import Exception;
 
 import assignments::metrics::LinesPerUnit;
+import assignments::helpers::Henk;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
@@ -25,6 +26,13 @@ public void multilineTest() {
   loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 3, methodName);
+}
+
+public void parenthesesBelow() {
+  str methodName = "parenthesesBelow";
+  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 4, methodName);
 }
 
 public void codeAfterMultiline() {
@@ -48,9 +56,14 @@ public void codeBeforeAndAfterMultiline() {
   testMethodBody(lines, 5, methodName);
 }
 
+list[&T] testables = [
+  multilineTest,
+  parenthesesBelow,
+  codeAfterMultiline,
+  codeBeforeMultiline,
+  codeBeforeMultiline
+];
+
 public void multilineRunner() {
-  multilineTest();
-  codeAfterMultiline();
-  codeBeforeMultiline();
-  codeBeforeAndAfterMultiline();
+  mapF(testables, void (void() fn) { fn(); });
 }

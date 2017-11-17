@@ -10,49 +10,47 @@ import ParseTree;
 import Exception;
 
 import assignments::metrics::LinesPerUnit;
-import assignments::helpers::Henk;
+import assignments::helpers::Defaults;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
-loc FIX_FOLDER = |cwd:///specs/fixtures/singleline|;
+/* loc FIX_FOLDER = |cwd:///specs/fixtures/singleline|; */
 
 str CLASS_NAME = "SinglelineComments";
 
-M3 m3 = loadM3(FIX_FOLDER);
+/* M3 m3 = loadM3(FIX_FOLDER); */
 
-public int bodySize(list[str] body) = size(body);
-
-public void parenthesesBelow () {
+public void parenthesesBelow (M3 file) {
   str methodName = "parenthesesBelow";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 5, methodName);
 }
 
-public void codeAfterCommentTest () {
+public void codeAfterCommentTest (M3 file) {
   str methodName = "codeAfterComment";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeAfterDoubleCommentTest () {
+public void codeAfterDoubleCommentTest (M3 file) {
   str methodName = "codeAfterDoubleComment";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeBelowCommentTest () {
+public void codeBelowCommentTest (M3 file) {
   str methodName = "codeBelowComment";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 3, methodName);
 }
 
-public void singlelineCommentTest () {
+public void singlelineCommentTest (M3 file) {
   str methodName = "singlelineComment";
-  loc method = getMethodFromM3(m3, CLASS_NAME, methodName);
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 3, methodName);
 }
@@ -65,6 +63,9 @@ list[&T] testables = [
   singlelineCommentTest
 ];
 
-public void singlelineRunner() {
-  mapF(testables, void (void() fn) { fn(); });
+public void singlelineRunner(file) {
+  println("<CLASS_NAME>:");
+  M3 m3 = loadM3(file);
+  mapF(testables, void (void(M3) fn) { fn(m3); });
+  println();
 }

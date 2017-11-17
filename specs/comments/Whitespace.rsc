@@ -1,4 +1,4 @@
-module specs::comments::MultilineComments
+module specs::comments::Whitespace
 
 import IO;
 import String;
@@ -14,54 +14,52 @@ import assignments::helpers::Defaults;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
-str CLASS_NAME = "MultilineComments";
+str CLASS_NAME = "Whitespace";
 
-public int bodySize(list[str] body) = size(body);
-
-public void multilineTest(M3 file) {
-  str methodName = "multiline";
+public void newlineTest(M3 file) {
+  str methodName = "newlineWhitespace";
   loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 3, methodName);
 }
 
-public void parenthesesBelow(M3 file) {
-  str methodName = "parenthesesBelow";
+public void newlineParenthesesTest(M3 file) {
+  str methodName = "newlineParentheses";
   loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeAfterMultiline(M3 file) {
-  str methodName = "codeAfterMultiline";
+public void newlineWithWhitespaceTest(M3 file) {
+  str methodName = "newlineWithWhitespace";
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 3, methodName);
+}
+
+public void whitespaceBeforeCodeTest(M3 file) {
+  str methodName = "whitespaceBeforeCode";
   loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
 }
 
-public void codeBeforeMultiline(M3 file) {
-  str methodName = "codeBeforeMultiline";
+public void whitespaceAfterCodeTest(M3 file) {
+  str methodName = "whitespaceAfterCode";
   loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
   testMethodBody(lines, 4, methodName);
-}
-
-public void codeBeforeAndAfterMultiline(M3 file) {
-  str methodName = "codeBeforeAndAfterMultiline";
-  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
-  list[str] lines = trimMethod(method);
-  testMethodBody(lines, 5, methodName);
 }
 
 list[&T] testables = [
-  multilineTest,
-  parenthesesBelow,
-  codeAfterMultiline,
-  codeBeforeMultiline,
-  codeBeforeMultiline
+  newlineTest,
+  newlineParenthesesTest,
+  newlineWithWhitespaceTest,
+  whitespaceBeforeCodeTest,
+  whitespaceAfterCodeTest
 ];
 
-public void multilineRunner(file) {
+public void whitespaceRunner(file) {
   println("<CLASS_NAME>:");
   M3 m3 = loadM3(file);
   mapF(testables, void (void(M3) fn) { fn(m3); });

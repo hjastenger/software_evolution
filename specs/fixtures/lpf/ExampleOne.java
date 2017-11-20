@@ -6,6 +6,18 @@ import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+/** Just random comments
+ * 
+ */
+
+/** Sample of Javadoc comment
+ * * The HelloWorld program implements an application that
+ * * simply displays "Hello World!" to the standard output.
+ *
+ * @author  Zara Ali
+ * @version 1.0
+ * @since   2014-03-31 
+ */
 public class ExampleOne {
    public static void main(String args[]) {
       

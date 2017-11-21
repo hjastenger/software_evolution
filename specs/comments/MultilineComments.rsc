@@ -53,12 +53,35 @@ public void codeBeforeAndAfterMultiline(M3 file) {
   testMethodBody(lines, 5, methodName);
 }
 
+public void startClosingMultiline(M3 file) {
+  str methodName = "singleAsteriskMulti";
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 3, methodName);
+}
+
+public void singleAsteriskCodeAfter(M3 file) {
+  str methodName = "singleAsteriskCodeAfter";
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 4, methodName);
+}
+
+public void starterInString(M3 file) {
+  str methodName = "starterInString";
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 10, methodName);
+}
+
 list[&T] testables = [
   multilineTest,
   parenthesesBelow,
   codeAfterMultiline,
   codeBeforeMultiline,
-  codeBeforeMultiline
+  startClosingMultiline,
+  singleAsteriskCodeAfter,
+  starterInString
 ];
 
 public void multilineRunner(file) {

@@ -25,12 +25,19 @@ public void linesPerFileTest(loc filename) {
 public void exampleOneFileTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "ExampleOne");
   list[str] lines = trimFile(sourceFile);
-  testFileContent(lines, 20, "ExampleOne.java");
+  testFileContent(lines, 30, "ExampleOne.java");
+}
+
+public void multilineDelimiterInString(loc filename) {
+  loc sourceFile = getFileFromM3(filename, "MultilineDelimiterInString");
+  list[str] lines = trimFile(sourceFile);
+  testFileContent(lines, 29, "MultilineDelimiterInString");
 }
 
 list[&T] testables = [
   linesPerFileTest,
-  exampleOneFileTest
+  exampleOneFileTest,
+  multilineDelimiterInString
 ];
 
 public void linesPerFileRunner(file) {

@@ -66,4 +66,16 @@ public class MultilineComments {
     */System.out.println("Still working");
     System.out.println("Hello, World");
   }
+
+  public static void starterInString() {
+    final String path = "/org/hsqldb/resources/information-schema.sql";
+    final String[] starters = new String[]{ "/*" };
+    InputStream fis = (InputStream) AccessController.doPrivileged(
+        new PrivilegedAction() {
+
+        public InputStream run() {
+            return getClass().getResourceAsStream(path);
+        }
+    });
+  }
 }

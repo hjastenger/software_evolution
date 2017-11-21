@@ -67,13 +67,21 @@ public void singleAsteriskCodeAfter(M3 file) {
   testMethodBody(lines, 4, methodName);
 }
 
+public void starterInString(M3 file) {
+  str methodName = "starterInString";
+  loc method = getMethodFromM3(file, CLASS_NAME, methodName);
+  list[str] lines = trimMethod(method);
+  testMethodBody(lines, 10, methodName);
+}
+
 list[&T] testables = [
   multilineTest,
   parenthesesBelow,
   codeAfterMultiline,
   codeBeforeMultiline,
   startClosingMultiline,
-  singleAsteriskCodeAfter
+  singleAsteriskCodeAfter,
+  starterInString
 ];
 
 public void multilineRunner(file) {

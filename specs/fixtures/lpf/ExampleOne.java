@@ -48,4 +48,16 @@ public class ExampleOne {
       Imgcodecs.imwrite("C:/opencv/drawingShapesOnImage.jpg", matrix);
       System.out.println("Image processed");
    }
+
+    public static void starterInString() {
+      final String path = "/org/hsqldb/resources/information-schema.sql";
+      final String[] starters = new String[]{ "/*" };
+      InputStream fis = (InputStream) AccessController.doPrivileged(
+          new PrivilegedAction() {
+
+          public InputStream run() {
+              return getClass().getResourceAsStream(path);
+          }
+      });
+    }
 }

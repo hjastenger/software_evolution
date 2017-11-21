@@ -41,7 +41,7 @@ public str trimSinglelineComments(str line) {
   if(/^[\/]{2}/ := trim(line)) {
     return "";
   }
-  int commentStart = findFirst(line, "/**");
+  int commentStart = findFirst(line, "/*");
   int commentLast = findLast(line, "*/");
   if(commentStart != -1 && commentLast != -1) {
     return trim(substring(line, commentLast+1, size(line)-1));
@@ -49,9 +49,19 @@ public str trimSinglelineComments(str line) {
   return line;
 }
 
+public bool inString(line, pattern) {
+  foc = findFirst(line, "\"");
+  soc = findLast(line, "\"");
+  if(foc != soc && foc != -1 && soc != -1) {
+    sub = substring(line, foc, soc);
+    return contains(sub, pattern);
+  }
+  return false;
+}
+
 public tuple[int,int] lazyFind(lrel[int, str] container, str pattern) {
   if([H, *T] := container) {
-    if(contains(H[1], pattern)) {
+    if(contains(H[1], pattern) && !inString(H[1], pattern)) {
       return <H[0], findFirst(H[1], pattern)>;
     } else { 
       return lazyFind(T, pattern);
@@ -76,12 +86,14 @@ public str deleteBetween(str line, int startIndex, int endIndex) {
   return substring(line, 0, startIndex) + substring(line, endIndex, size(line));
 }
 
-public list[str] trimMultilineComments(list[str] lines, str startStr, str endStr) {
+public list[str] trimMultilineComments(list[str] lines) {
+  str startStr = "/*";
+  str endStr = "*/";
   try {
     container = zip([0..(size(lines))], lines);
     tuple[int,int] commentStart = lazyFind(container, startStr);
     tuple[int,int] commentEnd = lazyFind(container, endStr);
     list[str] trim = deleteBetween(lines, commentStart, <commentEnd[0], commentEnd[1]+size(endStr)>);
-    return trimMultilineComments(trim, startStr, endStr);
+    return trimMultilineComments(trim);
   } catch: return lines;
 }

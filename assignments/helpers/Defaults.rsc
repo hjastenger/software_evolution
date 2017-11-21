@@ -4,6 +4,28 @@ import List;
 import String;
 import IO;
 
+/* Change implementation to Quickcheck for optimization. */
+public lrel[&L, &I] orderBy(lrel[&L, &I] arr) = orderBy(arr, []);
+public lrel[&L, &I] orderBy(lrel[&L, &I] arr, lrel[&L, &I] result) {
+  if([H, *T] := arr) {
+    result = insertInRelation(H, result);
+    return orderBy(T, result);
+  }
+  return result;
+}
+
+public lrel[&T, &K] insertInRelation(tuple[&T, &K] item, lrel[&T, &K] arr) {
+  if([H, *T] := arr) {
+      if(item[1] <= H[1]) {
+        return [item] + H + T;
+      } else {
+        return [H] + insertInRelation(item, T);
+      }
+  } else {
+    return [item];
+  }
+}
+
 public void mapF(list[&T] elems, fn) {
   if([H, *T] := elems) {
     fn(H);

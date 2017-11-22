@@ -63,7 +63,7 @@ public tuple[int,int] lazyFind(lrel[int, str] container, str pattern) {
   if([H, *T] := container) {
     if(contains(H[1], pattern) && !inString(H[1], pattern)) {
       return <H[0], findFirst(H[1], pattern)>;
-    } else { 
+    } else {
       return lazyFind(T, pattern);
     }
   } else {

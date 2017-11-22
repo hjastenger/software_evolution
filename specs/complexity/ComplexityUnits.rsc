@@ -15,7 +15,7 @@ import specs::helpers::M3;
 import specs::helpers::Loc;
 
 import assignments::helpers::Defaults;
-import assignments::metrics::ComplexityPerUnit;
+import assignments::metrics::Complexity;
 
 str CLASS_NAME = "ComplexityUnits";
 

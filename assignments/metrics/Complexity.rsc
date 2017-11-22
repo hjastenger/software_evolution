@@ -1,9 +1,16 @@
-module assignments::metrics::ComplexityPerUnit
+module assignments::metrics::Complexity
 
 import IO;
 import String;
+import ParseTree;
+import Set;
+import util::FileSystem;
 import lang::java::m3::Core;
+import lang::java::m3::AST;
 import lang::java::\syntax::Java15;
+
+import assignments::helpers::Defaults;
+import assignments::metrics::LinesPerUnit;
 
 public int cyclomaticComplexity(m) {
   result = 1;
@@ -23,4 +30,30 @@ public int cyclomaticComplexity(m) {
     case (CatchClause)`catch (<FormalParam _>) <Block _>` : result += 1;
   }
   return result;
+}
+
+public void fileRiskEval(M3 m3) {
+  list[loc] locMethods = toList(methods(m3));
+  list[MethodBody] allBodies(loc method) = [m | /MethodBody m := parse(#MethodDec, method)];
+  lrel[int, int] ccLoc  = [ <linesPerMethod(m), cyclomaticComplexity(n)>
+                           | m <- locMethods, n <- allBodies(m)];
+
+  iprintln(ccLoc);
+
+  // iprintln(piet);
+
+  // Temp only first:
+
+
+
+  // iprintln(allMethods);
+}
+
+public void tempRunner() {
+  loc path = |cwd:///specs/fixtures|;
+  fileName = "ComplexityUnits";
+
+  list[loc] file = [f| /file(f) <- crawl(path), contains(f.path, fileName) && f.extension == "java"];
+  M3 m3 = createM3FromFile(head(file));
+  fileRiskEval(m3);
 }

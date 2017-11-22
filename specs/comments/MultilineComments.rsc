@@ -71,7 +71,7 @@ public void starterInString(M3 file) {
   str methodName = "starterInString";
   loc method = getMethodFromM3(file, CLASS_NAME, methodName);
   list[str] lines = trimMethod(method);
-  testMethodBody(lines, 10, methodName);
+  testMethodBody(lines, 5, methodName);
 }
 
 list[&T] testables = [

@@ -5,17 +5,17 @@ public class SinglelineComments {
   }
 
   public static void parenthesesBelow()
-  { 
+  {
     /** Commend */ System.out.println("There's still code on this line");
     System.out.println("Hello, World");
   }
 
-  public static void codeAfterComment() { 
+  public static void codeAfterComment() {
     /** Commend */ System.out.println("There's still code on this line");
     System.out.println("Hello, World");
   }
 
-  public static void codeAfterDoubleComment() { 
+  public static void codeAfterDoubleComment() {
     /** First */ /** Second */ System.out.println("There's still code on this line");
     System.out.println("Hello, World");
   }

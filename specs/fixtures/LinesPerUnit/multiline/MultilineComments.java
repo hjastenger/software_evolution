@@ -32,7 +32,7 @@ public class MultilineComments {
   public static void codeBeforeMultiline() {
     System.out.println("Still valid code");/** Multiline comment
      *
-     */ 
+     */
     System.out.println("Hello, World");
   }
 
@@ -50,7 +50,7 @@ public class MultilineComments {
        new RotatedRect( new Point(20, 150),new Size(260, 180), 180 ),
           //RotatedRect(Point c, Size s, double a)
           new Scalar(0, 0, 255),     //Scalar object for color
-          10);                       //Thickness of the line 
+          10);                       //Thickness of the line
     */
     System.out.println("Hello, World");
   }
@@ -62,7 +62,7 @@ public class MultilineComments {
        new RotatedRect( new Point(20, 150),new Size(260, 180), 180 ),
           //RotatedRect(Point c, Size s, double a)
           new Scalar(0, 0, 255),     //Scalar object for color
-          10);                       //Thickness of the line 
+          10);                       //Thickness of the line
     */System.out.println("Still working");
     System.out.println("Hello, World");
   }

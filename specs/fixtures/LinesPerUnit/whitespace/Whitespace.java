@@ -4,19 +4,19 @@ public class Whitespace {
     System.out.println("Hello, World");
   }
 
-  public static void newlineWhitespace() { 
+  public static void newlineWhitespace() {
 
     System.out.println("Hello, World");
   }
 
   public static void newlineParentheses()
-  { 
+  {
 
     System.out.println("Hello, World");
   }
 
-  public static void newlineWithWhitespace() { 
-                
+  public static void newlineWithWhitespace() {
+
     System.out.println("Hello, World");
   }
 
@@ -27,6 +27,6 @@ public class Whitespace {
 
   public static void whitespaceAfterCode() {
     System.out.println("Hello, World");
-    System.out.print("whitespace before this");           
+    System.out.print("whitespace before this");
   }
 }

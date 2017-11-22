@@ -7,7 +7,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 /** Just random comments
- * 
+ *
  */
 
 /** Sample of Javadoc comment
@@ -16,11 +16,11 @@ import org.opencv.imgproc.Imgproc;
  *
  * @author  Zara Ali
  * @version 1.0
- * @since   2014-03-31 
+ * @since   2014-03-31
  */
 public class ExampleOne {
    public static void main(String args[]) {
-      
+
       //Loading the OpenCV core library
       System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
 
@@ -34,7 +34,7 @@ public class ExampleOne {
          new RotatedRect( new Point(20, 150),new Size(260, 180), 180 ),
             //RotatedRect(Point c, Size s, double a)
             new Scalar(0, 0, 255),     //Scalar object for color
-            10);                       //Thickness of the line 
+            10);                       //Thickness of the line
       */
 
       //Drawing a Rectangle

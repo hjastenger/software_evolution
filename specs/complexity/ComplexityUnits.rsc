@@ -29,9 +29,57 @@ private void ifElseTest(M3 m3) {
   assertEquality(cyclomaticComplexity(method), 2, "ifElseTest");
 }
 
+private void doWhileTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "doWhile");
+  assertEquality(cyclomaticComplexity(method), 2, "doWhileTest");
+}
+
+private void whileTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "normalWhile");
+  assertEquality(cyclomaticComplexity(method), 2, "whileTest");
+}
+
+private void forTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "normalFor");
+  assertEquality(cyclomaticComplexity(method), 2, "forTest");
+}
+
+private void forEachTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "forEach");
+  assertEquality(cyclomaticComplexity(method), 2, "forEachTest");
+}
+
+private void singleCaseTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleCase");
+  assertEquality(cyclomaticComplexity(method), 3, "singleCaseTest");
+}
+
+private void multipleCaseTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleCase");
+  assertEquality(cyclomaticComplexity(method), 4, "multipleCaseTest");
+}
+
+private void singleCatchTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleCatch");
+  assertEquality(cyclomaticComplexity(method), 2, "singleCatchTest");
+}
+
+private void multipleCatchTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleCatch");
+  assertEquality(cyclomaticComplexity(method), 3, "multipleCatchTest");
+}
+
 list[&T] testables = [
   onlyIfTest,
-  ifElseTest
+  ifElseTest,
+  doWhileTest,
+  whileTest,
+  forTest,
+  forEachTest,
+  singleCaseTest,
+  multipleCaseTest,
+  singleCatchTest,
+  multipleCatchTest
 ];
 
 public void complexityUnitsRunner(path) {

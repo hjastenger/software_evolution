@@ -4,7 +4,7 @@ public class LinesPerFile {
     System.out.println("Hello, World");
   }
 
-  public static void linesPerFileTest() { 
+  public static void linesPerFileTest() {
     System.out.println("Hello, World");
   }
 }

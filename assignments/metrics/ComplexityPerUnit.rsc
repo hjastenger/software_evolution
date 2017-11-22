@@ -5,7 +5,7 @@ import String;
 import lang::java::m3::Core;
 import lang::java::\syntax::Java15;
 
-public int cyclomaticComplexity(MethodBody m) {
+public int cyclomaticComplexity(m) {
   result = 1;
   visit (m) {
     case (Stm)`if (<Expr _>) <Stm _>`: result +=1;

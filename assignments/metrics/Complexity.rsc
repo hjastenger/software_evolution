@@ -12,7 +12,7 @@ import lang::java::\syntax::Java15;
 import assignments::helpers::Defaults;
 import assignments::metrics::LinesPerUnit;
 
-public int cyclomaticComplexity(m) {
+public int ccCount(m) {
   result = 1;
   visit (m) {
     case (Stm)`if (<Expr _>) <Stm _>`: result +=1;
@@ -32,10 +32,10 @@ public int cyclomaticComplexity(m) {
   return result;
 }
 
-public void fileRiskEval(M3 m3) {
+public void cyclomaticComplexity(M3 m3) {
   list[loc] locMethods = toList(methods(m3));
   list[MethodBody] allBodies(loc method) = [m | /MethodBody m := parse(#MethodDec, method)];
-  lrel[int, int] ccLoc  = [ <linesPerMethod(m), cyclomaticComplexity(n)>
+  lrel[int, int] ccLoc  = [ <linesPerMethod(m), ccCount(n)>
                            | m <- locMethods, n <- allBodies(m)];
 
   iprintln(ccLoc);
@@ -47,13 +47,4 @@ public void fileRiskEval(M3 m3) {
 
 
   // iprintln(allMethods);
-}
-
-public void tempRunner() {
-  loc path = |cwd:///specs/fixtures|;
-  fileName = "ComplexityUnits";
-
-  list[loc] file = [f| /file(f) <- crawl(path), contains(f.path, fileName) && f.extension == "java"];
-  M3 m3 = createM3FromFile(head(file));
-  fileRiskEval(m3);
 }

@@ -66,6 +66,53 @@ public class ComplexityUnits {
     }
   }
 
-  // TODO: Conjunction & Disjunction
-  // TODO: E2E of everything g
+  public static void conditional() {
+    (true) ? true : false;
+    return;
+  }
+
+  public static void singleConjunction() {
+    return true && false;
+  }
+
+  public static void singleDisjunction() {
+    return true || false;
+  }
+
+  public static void multipleConjunction() {
+    return true && false && true;
+  }
+
+  public static void multipleDisjunction() {
+    return true || false || true;
+  }
+
+  public static void e2e() {
+    if(true && true || false) {
+      for(int i : integers) {
+        return;
+      }
+    } else {
+      while(true && false || false && true) {
+        do {
+          switch("henk") {
+            case "henk": return;
+            case "piet": return;
+            case "fred":
+              try {
+                return;
+              } catch( HenkException e) {
+                return (true || false) ? true : false;
+              } catch( HenkException2 e) {
+                for(int i = 0; i < 20; i++) {
+                  if(true) return;
+                }
+              }
+              break;
+            default: return;
+          }
+        } while(true);
+      }
+    }
+  }
 }

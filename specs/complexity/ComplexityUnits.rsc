@@ -69,6 +69,36 @@ private void multipleCatchTest(M3 m3) {
   assertEquality(cyclomaticComplexity(method), 3, "multipleCatchTest");
 }
 
+private void conditionalTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "conditional");
+  assertEquality(cyclomaticComplexity(method), 2, "conditionalTest");
+}
+
+private void singleConjunctionTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleConjunction");
+  assertEquality(cyclomaticComplexity(method), 2, "singleConjunctionTest");
+}
+
+private void singleDisjunctionTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleDisjunction");
+  assertEquality(cyclomaticComplexity(method), 2, "singleDisjunctionTest");
+}
+
+private void multipleConjunctionTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleConjunction");
+  assertEquality(cyclomaticComplexity(method), 3, "multipleConjunctionTest");
+}
+
+private void multipleDisjunctionTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleDisjunction");
+  assertEquality(cyclomaticComplexity(method), 3, "multipleDisjunctionTest");
+}
+
+private void e2eTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "e2e");
+  assertEquality(cyclomaticComplexity(method), 20, "e2eTest");
+}
+
 list[&T] testables = [
   onlyIfTest,
   ifElseTest,
@@ -79,7 +109,13 @@ list[&T] testables = [
   singleCaseTest,
   multipleCaseTest,
   singleCatchTest,
-  multipleCatchTest
+  multipleCatchTest,
+  conditionalTest,
+  singleConjunctionTest,
+  singleDisjunctionTest,
+  multipleConjunctionTest,
+  multipleDisjunctionTest,
+  e2eTest
 ];
 
 public void complexityUnitsRunner(path) {

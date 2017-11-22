@@ -16,6 +16,9 @@ public int cyclomaticComplexity(MethodBody m) {
     case (Stm)`for (<LocalVarDec _> ; <Expr? e> ; <{Expr ","}* _>) <Stm _>`: result += 1;
     case (Stm)`for (<FormalParam _> : <Expr _>) <Stm _>` : result += 1;
     case (Stm)`switch (<Expr _> ) <SwitchBlock _>`: result += 1;
+    case (Expr)`<Expr _> <CondMid _> <Expr _>`: result +=1;
+    case (Expr)`<Expr _> && <Expr _>` : result += 1;
+    case (Expr)`<Expr _> || <Expr _>` : result += 1;
     case (SwitchLabel)`case <Expr _> :` : result += 1;
     case (CatchClause)`catch (<FormalParam _>) <Block _>` : result += 1;
   }

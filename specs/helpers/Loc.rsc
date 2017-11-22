@@ -44,3 +44,19 @@ public bool testFileContent(list[str] body, expected, TEST_NAME) {
     throw "Test failed!";
   }
 }
+
+public &T assertEquality(comparable, expected, TEST_NAME) {
+  if(comparable == expected) {
+    println("\t<ANSI_GREEN> <TEST_NAME> test succeeded! <ANSI_RESET>");
+    return true;
+  } else {
+    println("\t<ANSI_RED> Test file content failed: <TEST_NAME> <ANSI_RESET>");
+    println("\t<ANSI_RED> Expected: <expected> <ANSI_RESET>");
+    println("\t<ANSI_RED> Received: <size(body)> <ANSI_RESET>");
+
+    println("\t<ANSI_RED> **************** START BODY *************:<ANSI_RESET>");
+    mapF(body, printbodyln);
+    println("\t<ANSI_RED> **************** END BODY *************:<ANSI_RESET>");
+    throw "Test failed!";
+  }
+}

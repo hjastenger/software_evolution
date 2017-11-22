@@ -3,5 +3,11 @@ public class ComplexityUnits {
     if(true) return;
   }
 
-  public static void main() {}
+  public static void ifElse() {
+    if(true) {
+      return;
+    } else {
+      return;
+    }
+  }
 }

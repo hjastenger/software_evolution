@@ -1,13 +1,23 @@
 public class ComplexityUnits {
   private str pizza = "";
 
-  ComplexityUnits() {
+  public ComplexityUnits() {
     this.pizza = "pizza";
 
     if(this.pizza != "") {
       System.out.println("YAY PIZZA");
     }
+
+    if(this.pizza != "") {
+      System.out.println("YAY PIZZA");
+    }
+
+    if(this.pizza != "") {
+      System.out.println("YAY PIZZA");
+    }
   }
+
+  public abstract void abstractMethod();
 
   public static void onlyIf() {
     if(true) return;

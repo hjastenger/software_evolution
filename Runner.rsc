@@ -36,9 +36,9 @@ public void runMetrics(loc path) {
   M3 m3 = createM3FromDirectory(path);
   datetime startTime = now();
 
-  volume(m3);
+  // volume(m3);
   // unitSize(m3);
-  // cyclomaticComplexity(m3);
+  cyclomaticComplexity(m3);
   // duplication(m3);
   printTimeTaken(startTime, now());
 
@@ -50,12 +50,12 @@ public void runMetrics(loc path) {
 public void runTests() {
   loc fixtures = |cwd:///specs/fixtures|;
 
-  whitespaceRunner(fixtures);
-  singlelineRunner(fixtures);
-  multilineRunner(fixtures);
-  linesPerFileRunner(fixtures);
+  // whitespaceRunner(fixtures);
+  // singlelineRunner(fixtures);
+  // multilineRunner(fixtures);
+  // linesPerFileRunner(fixtures);
   complexityUnitsRunner(fixtures);
-  duplicationRunner(fixtures);
+  // duplicationRunner(fixtures);
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

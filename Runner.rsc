@@ -11,6 +11,7 @@ import lang::java::m3::Core;
 import assignments::helpers::Defaults;
 import assignments::metrics::Complexity;
 import assignments::metrics::LinesPerFile;
+import assignments::metrics::LinesPerUnit;
 import assignments::metrics::Duplication;
 
 import specs::comments::MultilineComments;
@@ -35,8 +36,8 @@ public void runMetrics(loc path) {
 
   // cyclomaticComplexity(m3);
   // duplication(m3);
-  // unitSize(m3);
-  volume(m3);
+  unitSize(m3);
+  // volume(m3);
 
   // TODO: Add results for reusability, testability etc
   // TODO: Check this repo for other todo's and solve them.

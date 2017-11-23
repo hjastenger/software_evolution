@@ -3,6 +3,7 @@ module assignments::helpers::Defaults
 import List;
 import String;
 import IO;
+import Map;
 
 /* Change implementation to Quickcheck for optimization. */
 public lrel[&L, &I] orderBy(lrel[&L, &I] arr) = orderBy(arr, []);
@@ -96,4 +97,45 @@ public list[str] trimMultilineComments(list[str] lines) {
     list[str] trim = deleteBetween(lines, commentStart, <commentEnd[0], commentEnd[1]+size(endStr)>);
     return trimMultilineComments(trim);
   } catch: return lines;
+}
+
+public real percentage(part, total) {
+  return part / total * 100.0;
+}
+
+map[str, real] riskPercentages(map[str, real] risks, int totalLoc) {
+  // Calculates percentages for each risk level.
+  for(str key <- domain(risks)) {
+    risks[key] = percentage(risks[key], totalLoc);
+  }
+
+  return risks;
+}
+
+public str rating(map[str, real] riskLevels) {
+  if(riskLevels["moderate"] <= 25 && riskLevels["high"] == 0 && riskLevels["veryHigh"] == 0) {
+    return "++";
+  } else if(riskLevels["moderate"] <= 30 && riskLevels["high"] <= 5 && riskLevels["veryHigh"] == 0) {
+    return "+";
+  } else if(riskLevels["moderate"] <= 40 && riskLevels["high"] <= 10 && riskLevels["veryHigh"] == 0) {
+    return "o";
+  } else if(riskLevels["moderate"] <= 50 && riskLevels["high"] <= 15 && riskLevels["veryHigh"] <= 5) {
+    return "-";
+  } else {
+    return "--";
+  }
+}
+
+public void resultsPrinter(map[str, real] riskLevels, str riskScore) {
+  real low = riskLevels["low"];
+  real moderate = riskLevels["moderate"];
+  real high = riskLevels["high"];
+  real veryHigh = riskLevels["veryHigh"];
+
+  println("Low:\t\t<low>");
+  println("Moderate:\t<moderate>");
+  println("High:\t\t<high>");
+  println("Very High:\t<veryHigh>");
+  println("Score: <riskScore>");
+  println();
 }

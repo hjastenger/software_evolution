@@ -5,7 +5,6 @@ import String;
 import ParseTree;
 import Set;
 import ListRelation;
-import Map;
 import util::FileSystem;
 import util::Math;
 import lang::java::m3::Core;
@@ -60,50 +59,13 @@ private map[str, real] riskLevels(list[loc] locMethods) {
     totalLoc += countLines;
   }
 
-  // Calculates percentages for each risk level.
-  for(str key <- domain(risks)) {
-    risks[key] = percentage(risks[key], totalLoc);
-  }
-
-  return risks;
-}
-
-private str complexityRating(map[str, real] riskLevels) {
-  if(riskLevels["moderate"] <= 25 && riskLevels["high"] == 0 && riskLevels["veryHigh"] == 0) {
-    return "++";
-  } else if(riskLevels["moderate"] <= 30 && riskLevels["high"] <= 5 && riskLevels["veryHigh"] == 0) {
-    return "+";
-  } else if(riskLevels["moderate"] <= 40 && riskLevels["high"] <= 10 && riskLevels["veryHigh"] == 0) {
-    return "o";
-  } else if(riskLevels["moderate"] <= 50 && riskLevels["high"] <= 15 && riskLevels["veryHigh"] <= 5) {
-    return "-";
-  } else {
-    return "--";
-  }
-}
-
-private real percentage(part, total) {
-  return part / total * 100.0;
-}
-
-private void resultsPrinter(map[str, real] riskLevels, str riskScore) {
-  real low = riskLevels["low"];
-  real moderate = riskLevels["moderate"];
-  real high = riskLevels["high"];
-  real veryHigh = riskLevels["veryHigh"];
-
-  println("--------- Complexity ---------");
-  println("Low:\t\t<low>");
-  println("Moderate:\t<moderate>");
-  println("High:\t\t<high>");
-  println("Very High:\t<veryHigh>");
-  println("Score: <riskScore>");
-  println();
+  return riskPercentages(risks, totalLoc);
 }
 
 public void cyclomaticComplexity(M3 m3) {
   list[loc] locMethods = toList(methods(m3));
   map[str, real] riskLevels = riskLevels(locMethods);
-  str riskScore = complexityRating(riskLevels);
+  str riskScore = rating(riskLevels);
+  println("--------- Complexity ---------");
   resultsPrinter(riskLevels, riskScore);
 }

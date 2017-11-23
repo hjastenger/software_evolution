@@ -26,7 +26,6 @@ public int ccCount(m) {
     case (Stm)`for (<{Expr ","}* _>; <Expr? _>; <{Expr ","}*_>) <Stm _>` : result += 1;
     case (Stm)`for (<LocalVarDec _> ; <Expr? e> ; <{Expr ","}* _>) <Stm _>`: result += 1;
     case (Stm)`for (<FormalParam _> : <Expr _>) <Stm _>` : result += 1;
-    case (Stm)`switch (<Expr _> ) <SwitchBlock _>`: result += 1;
     case (Expr)`<Expr _> <CondMid _> <Expr _>`: result +=1;
     case (Expr)`<Expr _> && <Expr _>` : result += 1;
     case (Expr)`<Expr _> || <Expr _>` : result += 1;
@@ -34,7 +33,6 @@ public int ccCount(m) {
     case (CatchClause)`catch (<FormalParam _>) <Block _>` : result += 1;
   }
 
-  //TODO: Have one too many, should remove otherwise less points.
   return result;
 }
 

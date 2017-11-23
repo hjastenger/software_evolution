@@ -51,12 +51,12 @@ private void forEachTest(M3 m3) {
 
 private void singleCaseTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleCase");
-  assertEquality(ccCount(method), 3, "singleCaseTest");
+  assertEquality(ccCount(method), 2, "singleCaseTest");
 }
 
 private void multipleCaseTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleCase");
-  assertEquality(ccCount(method), 4, "multipleCaseTest");
+  assertEquality(ccCount(method), 3, "multipleCaseTest");
 }
 
 private void singleCatchTest(M3 m3) {
@@ -101,7 +101,7 @@ private void constructorTest(M3 m3) {
 
 private void e2eTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "e2e");
-  assertEquality(ccCount(method), 20, "e2eTest");
+  assertEquality(ccCount(method), 19, "e2eTest");
 }
 
 list[&T] testables = [

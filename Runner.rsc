@@ -18,14 +18,27 @@ import specs::comments::Whitespace;
 import specs::lpf::LinesPerFile;
 import specs::complexity::ComplexityUnits;
 
-public void runMetrics() {
-  // loc hqsql = blabla
-  loc path = |cwd:///specs/fixtures|;
+public void runHSQL() {
+  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  runMetrics(hsql);
+}
+
+public void runSmall() {
+  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  runMetrics(smallsql);
+}
+
+public void runMetrics(loc path) {
   M3 m3 = createM3FromDirectory(path);
 
   // cyclomaticComplexity(m3);
+  // duplication(m3);
+  // unitSize(m3);
   volume(m3);
 
+  // TODO: Add results for reusability, testability etc
+  // TODO: Check this repo for other todo's and solve them.
+  // TODO: Remove commented shit and test more?
 }
 
 public void runTests() {

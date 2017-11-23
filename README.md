@@ -10,7 +10,7 @@ Repository for the course Software Evolution
 
 1. Start Rascal REPL in root dir: `java -Xmx1G -Xss32m -jar <rascal_jar_location>`
 2. `import Runner;` to import the general runner module.
-  1. Run metrics on given path eg: `runMetrics(|cwd:///specs/fixtures|);`
+  1. Run metrics on given path eg: `runMetrics(|cwd:///path/to/directory|);`
   2. Run metrics on HSQLDB: `runHSQL();`
   3. Run metrics on SmallSQL: `runSmall();`
   4. Run tests: `runTests();`

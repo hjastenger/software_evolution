@@ -11,12 +11,14 @@ import lang::java::m3::Core;
 import assignments::helpers::Defaults;
 import assignments::metrics::Complexity;
 import assignments::metrics::LinesPerFile;
+import assignments::metrics::Duplication;
 
 import specs::comments::MultilineComments;
 import specs::comments::SinglelineComments;
 import specs::comments::Whitespace;
 import specs::lpf::LinesPerFile;
 import specs::complexity::ComplexityUnits;
+import specs::duplication::Duplication;
 
 public void runHSQL() {
   loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
@@ -49,4 +51,5 @@ public void runTests() {
   multilineRunner(fixtures);
   linesPerFileRunner(fixtures);
   complexityUnitsRunner(fixtures);
+  duplicationRunner(fixtures);
 }

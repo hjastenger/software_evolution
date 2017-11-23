@@ -13,6 +13,18 @@ public void printbodyln(str line) {
   println("\t<ANSI_RED> <line> <ANSI_RESET>");
 }
 
+public bool testComplexity(int complexity, expected, TEST_NAME) {
+  if(complexity == expected) {
+    println("\t<ANSI_GREEN> <TEST_NAME> test succeeded! <ANSI_RESET>");
+    return true;
+  } else {
+    println("\t<ANSI_RED> <TEST_NAME> test failed! <ANSI_RESET>");
+    println("\t<ANSI_RED> Expected: <expected> <ANSI_RESET>");
+    println("\t<ANSI_RED> Received: <complexity> <ANSI_RESET>");
+    throw "Test failed!";
+  }
+}
+
 public bool testMethodBody(list[str] body, expected, TEST_NAME) {
   if(size(body) == expected) {
     println("\t<ANSI_GREEN> <TEST_NAME> test succeeded! <ANSI_RESET>");

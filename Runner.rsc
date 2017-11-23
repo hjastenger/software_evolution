@@ -5,6 +5,7 @@ import String;
 import ParseTree;
 import Set;
 import util::FileSystem;
+import DateTime;
 
 import lang::java::m3::Core;
 
@@ -33,11 +34,13 @@ public void runSmall() {
 
 public void runMetrics(loc path) {
   M3 m3 = createM3FromDirectory(path);
+  datetime startTime = now();
 
+  volume(m3);
+  // unitSize(m3);
   // cyclomaticComplexity(m3);
   // duplication(m3);
-  unitSize(m3);
-  // volume(m3);
+  printTimeTaken(startTime, now());
 
   // TODO: Add results for reusability, testability etc
   // TODO: Check this repo for other todo's and solve them.
@@ -53,4 +56,12 @@ public void runTests() {
   linesPerFileRunner(fixtures);
   complexityUnitsRunner(fixtures);
   duplicationRunner(fixtures);
+}
+
+public void printTimeTaken(datetime startTime, datetime endTime) {
+  println("--------- Time Taken ---------");
+  println("Started at: <startTime>");
+  println("Ended at: <endTime>");
+  println("Elapsed: <endTime - startTime>");
+  println();
 }

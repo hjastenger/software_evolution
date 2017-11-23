@@ -125,7 +125,7 @@ list[&T] testables = [
 ];
 
 public void complexityUnitsRunner(path) {
-  println("<CLASS_NAME>:");
+  println("\n<CLASS_NAME>:");
 
   M3 m3 = loadM3(path);
   mapF(testables, void (void(M3) fn) { fn(m3); });

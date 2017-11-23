@@ -39,8 +39,9 @@ public void runMetrics(loc path) {
   // volume(m3);
   // unitSize(m3);
   cyclomaticComplexity(m3);
-  // duplication(m3);
+  // duplication(path);
   printTimeTaken(startTime, now());
+  // unitSize(m3);
 
   // TODO: Add results for reusability, testability etc
   // TODO: Check this repo for other todo's and solve them.

@@ -31,12 +31,12 @@ public loc getFileFromM3(loc file, filename) {
   return head(sourceFiles);
 }
 
-public MethodBody getMethodBodyFromM3(M3 m3, cname, mname) {
-  loc method = getMethodFromM3(m3, cname, mname);
-  list[MethodBody] allBodies = [m | /MethodBody m := parse(#MethodDec, method)];
-
-  if(size(allBodies) == 0) {
-    throw "Could not match any methods with the given class name and function name: <cname> : <fname>";
-  }
-  return head(allBodies);
-}
+// public MethodBody getMethodBodyFromM3(M3 m3, cname, mname) {
+//   loc method = getMethodFromM3(m3, cname, mname);
+//   list[MethodBody] allBodies = [m | /MethodBody m := parse(#MethodDec, method)];
+//
+//   if(size(allBodies) == 0) {
+//     throw "Could not match any methods with the given class name and function name: <cname> : <fname>";
+//   }
+//   return head(allBodies);
+// }

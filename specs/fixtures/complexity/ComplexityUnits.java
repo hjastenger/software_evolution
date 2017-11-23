@@ -7,14 +7,6 @@ public class ComplexityUnits {
     if(this.pizza != "") {
       System.out.println("YAY PIZZA");
     }
-
-    if(this.pizza != "") {
-      System.out.println("YAY PIZZA");
-    }
-
-    if(this.pizza != "") {
-      System.out.println("YAY PIZZA");
-    }
   }
 
   public abstract void abstractMethod();

@@ -95,9 +95,8 @@ private void multipleDisjunctionTest(M3 m3) {
 }
 
 private void constructorTest(M3 m3) {
-  loc method = getMethodFromM3(m3, CLASS_NAME, "ComplexityUnits");
-  println(method);
-  // assertEquality(ccCount(method), 2, "constructorTest");
+  loc method = getMethodFromM3(m3, CLASS_NAME, "ComplexityUnits/ComplexityUnits");
+  assertEquality(ccCount(method), 2, "constructorTest");
 }
 
 private void abstractMethodTest(M3 m3) {
@@ -111,24 +110,24 @@ private void e2eTest(M3 m3) {
 }
 
 list[&T] testables = [
-  // onlyIfTest,
-  // ifElseTest,
-  // doWhileTest,
-  // whileTest,
-  // forTest,
-  // forEachTest,
-  // singleCaseTest,
-  // multipleCaseTest,
-  // singleCatchTest,
-  // multipleCatchTest,
-  // conditionalTest,
-  // singleConjunctionTest,
-  // singleDisjunctionTest,
-  // multipleConjunctionTest,
-  // multipleDisjunctionTest,
-  constructorTest
-  // abstractMethodTest,
-  // e2eTest
+  onlyIfTest,
+  ifElseTest,
+  doWhileTest,
+  whileTest,
+  forTest,
+  forEachTest,
+  singleCaseTest,
+  multipleCaseTest,
+  singleCatchTest,
+  multipleCatchTest,
+  conditionalTest,
+  singleConjunctionTest,
+  singleDisjunctionTest,
+  multipleConjunctionTest,
+  multipleDisjunctionTest,
+  constructorTest,
+  abstractMethodTest,
+  e2eTest
 ];
 
 public void complexityUnitsRunner(path) {

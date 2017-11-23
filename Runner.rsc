@@ -50,12 +50,12 @@ public void runMetrics(loc path) {
 public void runTests() {
   loc fixtures = |cwd:///specs/fixtures|;
 
-  // whitespaceRunner(fixtures);
-  // singlelineRunner(fixtures);
-  // multilineRunner(fixtures);
-  // linesPerFileRunner(fixtures);
+  whitespaceRunner(fixtures);
+  singlelineRunner(fixtures);
+  multilineRunner(fixtures);
+  linesPerFileRunner(fixtures);
   complexityUnitsRunner(fixtures);
-  // duplicationRunner(fixtures);
+  duplicationRunner(fixtures);
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

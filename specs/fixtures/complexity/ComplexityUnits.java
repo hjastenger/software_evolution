@@ -1,4 +1,14 @@
 public class ComplexityUnits {
+  private str pizza = "";
+
+  ComplexityUnits() {
+    this.pizza = "pizza";
+
+    if(this.pizza != "") {
+      System.out.println("YAY PIZZA");
+    }
+  }
+
   public static void onlyIf() {
     if(true) return;
   }

@@ -17,7 +17,7 @@ import specs::comments::Whitespace;
 import specs::lpf::LinesPerFile;
 import specs::complexity::ComplexityUnits;
 
-public void run() {
+public void runMetrics() {
   // loc hqsql = blabla
   loc path = |cwd:///specs/fixtures|;
   M3 m3 = createM3FromDirectory(path);
@@ -25,7 +25,7 @@ public void run() {
   cyclomaticComplexity(m3);
 }
 
-public void runTest() {
+public void runTests() {
   loc fixtures = |cwd:///specs/fixtures|;
 
   whitespaceRunner(fixtures);

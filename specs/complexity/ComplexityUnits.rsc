@@ -21,82 +21,87 @@ str CLASS_NAME = "ComplexityUnits";
 
 private void onlyIfTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "onlyIf");
-  assertEquality(cyclomaticComplexity(method), 2, "onlyIfTest");
+  assertEquality(ccCount(method), 2, "onlyIfTest");
 }
 
 private void ifElseTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "ifElse");
-  assertEquality(cyclomaticComplexity(method), 2, "ifElseTest");
+  assertEquality(ccCount(method), 2, "ifElseTest");
 }
 
 private void doWhileTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "doWhile");
-  assertEquality(cyclomaticComplexity(method), 2, "doWhileTest");
+  assertEquality(ccCount(method), 2, "doWhileTest");
 }
 
 private void whileTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "normalWhile");
-  assertEquality(cyclomaticComplexity(method), 2, "whileTest");
+  assertEquality(ccCount(method), 2, "whileTest");
 }
 
 private void forTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "normalFor");
-  assertEquality(cyclomaticComplexity(method), 2, "forTest");
+  assertEquality(ccCount(method), 2, "forTest");
 }
 
 private void forEachTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "forEach");
-  assertEquality(cyclomaticComplexity(method), 2, "forEachTest");
+  assertEquality(ccCount(method), 2, "forEachTest");
 }
 
 private void singleCaseTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleCase");
-  assertEquality(cyclomaticComplexity(method), 3, "singleCaseTest");
+  assertEquality(ccCount(method), 3, "singleCaseTest");
 }
 
 private void multipleCaseTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleCase");
-  assertEquality(cyclomaticComplexity(method), 4, "multipleCaseTest");
+  assertEquality(ccCount(method), 4, "multipleCaseTest");
 }
 
 private void singleCatchTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleCatch");
-  assertEquality(cyclomaticComplexity(method), 2, "singleCatchTest");
+  assertEquality(ccCount(method), 2, "singleCatchTest");
 }
 
 private void multipleCatchTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleCatch");
-  assertEquality(cyclomaticComplexity(method), 3, "multipleCatchTest");
+  assertEquality(ccCount(method), 3, "multipleCatchTest");
 }
 
 private void conditionalTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "conditional");
-  assertEquality(cyclomaticComplexity(method), 2, "conditionalTest");
+  assertEquality(ccCount(method), 2, "conditionalTest");
 }
 
 private void singleConjunctionTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleConjunction");
-  assertEquality(cyclomaticComplexity(method), 2, "singleConjunctionTest");
+  assertEquality(ccCount(method), 2, "singleConjunctionTest");
 }
 
 private void singleDisjunctionTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "singleDisjunction");
-  assertEquality(cyclomaticComplexity(method), 2, "singleDisjunctionTest");
+  assertEquality(ccCount(method), 2, "singleDisjunctionTest");
 }
 
 private void multipleConjunctionTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleConjunction");
-  assertEquality(cyclomaticComplexity(method), 3, "multipleConjunctionTest");
+  assertEquality(ccCount(method), 3, "multipleConjunctionTest");
 }
 
 private void multipleDisjunctionTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "multipleDisjunction");
-  assertEquality(cyclomaticComplexity(method), 3, "multipleDisjunctionTest");
+  assertEquality(ccCount(method), 3, "multipleDisjunctionTest");
+}
+
+private void constructorTest(M3 m3) {
+  MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "ComplexityUnits");
+  assertEquality(ccCount(method), 2, "constructorTest");
 }
 
 private void e2eTest(M3 m3) {
   MethodBody method = getMethodBodyFromM3(m3, CLASS_NAME, "e2e");
-  assertEquality(cyclomaticComplexity(method), 20, "e2eTest");
+  assertEquality(ccCount(method), 20, "e2eTest");
 }
 
 list[&T] testables = [
@@ -115,6 +120,7 @@ list[&T] testables = [
   singleDisjunctionTest,
   multipleConjunctionTest,
   multipleDisjunctionTest,
+  constructorTest,
   e2eTest
 ];
 

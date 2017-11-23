@@ -60,7 +60,7 @@ private map[str, real] riskLevels(list[loc] locMethods) {
     totalLoc += countLines;
   }
 
-  // Calculates percentages for each key.
+  // Calculates percentages for each risk level.
   for(str key <- domain(risks)) {
     risks[key] = percentage(risks[key], totalLoc);
   }
@@ -97,7 +97,7 @@ private void resultsPrinter(map[str, real] riskLevels, str riskScore) {
   println("Moderate:\t<moderate>");
   println("High:\t\t<high>");
   println("Very High:\t<veryHigh>");
-  println("score: <riskScore>");
+  println("Score: <riskScore>");
   println();
 }
 

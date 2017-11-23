@@ -10,6 +10,7 @@ import lang::java::m3::Core;
 
 import assignments::helpers::Defaults;
 import assignments::metrics::Complexity;
+import assignments::metrics::LinesPerFile;
 
 import specs::comments::MultilineComments;
 import specs::comments::SinglelineComments;
@@ -22,7 +23,9 @@ public void runMetrics() {
   loc path = |cwd:///specs/fixtures|;
   M3 m3 = createM3FromDirectory(path);
 
-  cyclomaticComplexity(m3);
+  // cyclomaticComplexity(m3);
+  volume(m3);
+
 }
 
 public void runTests() {

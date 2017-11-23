@@ -23,7 +23,7 @@ public loc getMethodFromM3(M3 m3, cname, fname) {
 public loc getFileFromM3(loc file, filename) {
   list[loc] sourceFiles = [f| /file(f) <- crawl(file), contains(f.path, filename) && f.extension == "java"];	
   if(size(sourceFiles) == 0) {
-    throw "Could not match any classes with the given class name <cname>";
+    throw "Could not match any classes with the given class name <filename>";
   }
   return head(sourceFiles);
 }

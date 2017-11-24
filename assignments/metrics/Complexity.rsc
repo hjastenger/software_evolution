@@ -16,19 +16,9 @@ import assignments::helpers::Defaults;
 import assignments::metrics::LinesPerUnit;
 
 // Counts the cyclometic complexity of a method, by visiting each node and
-public int ccCount(methodAst) {
+public int ccCount(Declaration methodAst) {
   int result = 1;
-  // str methodLoc = "<method>";
-  // Declaration methodAst;
 
-
-  // Properly parse based on if ConstrDec or MethodDec
-  // if(/constructor/ := methodLoc) {
-  //   methodAst = [n | /ConstrBody n := parse(#ConstrDec, method)];
-  // } else if(/method/ := methodLoc) {
-  //   methodAst = [n | /MethodBody n := parse(#MethodDec, method)];
-  // }
-  //
   visit (methodAst) {
     case (Stm)`if (<Expr _>) <Stm _>`: result +=1;
     case (Stm)`if (<Expr _>) <Stm _> else <Stm _>`: result +=1;
@@ -38,10 +28,10 @@ public int ccCount(methodAst) {
     case (Stm)`for (<LocalVarDec _> ; <Expr? e> ; <{Expr ","}* _>) <Stm _>`: result += 1;
     case (Stm)`for (<FormalParam _> : <Expr _>) <Stm _>` : result += 1;
     case (Expr)`<Expr _> <CondMid _> <Expr _>`: result +=1;
-    case (Expr)`<Expr _> && <Expr _>` : result += 1;
-    case (Expr)`<Expr _> || <Expr _>` : result += 1;
-    case (SwitchLabel)`case <Expr _> :` : result += 1;
-    case (CatchClause)`catch (<FormalParam _>) <Block _>` : result += 1;
+    case (Expr)`<Expr _> && <Expr _>`: result += 1;
+    case (Expr)`<Expr _> || <Expr _>`: result += 1;
+    case (SwitchLabel)`case <Expr _> :`: result += 1;
+    case (CatchClause)`catch (<FormalParam _>) <Block _>`: result += 1;
   }
 
   return result;
@@ -53,18 +43,19 @@ private map[str, real] riskLevels(list[loc] methods) {
 
   // get cyclomatic complexity, linecount and total count in one list iteration.
   // Kept simple for performance.
-  for(loc locMethod <- methods) {
-    Declaration ast = createAstFromFile(locMethod, false);
-    int countLines = linesPerMethod(locMethod);
-    int cc = 0;
+  for(loc method <- methods) {
+    // list[str]  = readFileLines(locMethod);
+    // println(("" | it + e | str e <- henk));
+    ast = createAstFromFile(method, false);
+
+    // int methodLines = linesPerMethod(method);
 
     visit(ast) {
-      case m:\constructor(_,_,_,_): cc += ccCount(m);
-      case m:\method(_,_,_,_): cc += ccCount(m);
-      case m:\method(_,_,_,_,_): cc += ccCount(m);
+      case m:\constructor(_,_,_,_): ccCount(m);
+      case m:\method(_,_,_,_): ccCount(m); //TODO: REMOVE!
+      case m:\method(_,_,_,_,_): ccCount(m);
     }
 
-    println(cc);
 
     // if(ccCount <= 10) {
     //   risks["low"] += countLines;

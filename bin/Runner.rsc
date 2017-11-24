@@ -23,12 +23,12 @@ import specs::complexity::ComplexityUnits;
 import specs::duplication::Duplication;
 
 public void runHSQL() {
-  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  loc hsql = |project://software_evolution/projects/hsqldb-2.4.0|;
   runMetrics(hsql);
 }
 
 public void runSmall() {
-  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  loc smallsql = |project://software_evolution/projects/smallsql-0.21|;
   runMetrics(smallsql);
 }
 
@@ -37,8 +37,8 @@ public void runMetrics(loc path) {
   datetime startTime = now();
 
   // volume(m3);
-  // unitSize(m3);
-  cyclomaticComplexity(m3);
+   unitSize(m3);
+  //cyclomaticComplexity(m3);
   // duplication(path);
   printTimeTaken(startTime, now());
   // unitSize(m3);

@@ -36,16 +36,12 @@ public void runMetrics(loc path) {
   M3 m3 = createM3FromDirectory(path);
   datetime startTime = now();
 
-  // volume(m3);
-  // unitSize(m3);
+  volume(m3)
+  unitSize(m3);
   cyclomaticComplexity(m3);
-  // duplication(path);
+  duplication(path);
+  unitSize(m3);
   printTimeTaken(startTime, now());
-  // unitSize(m3);
-
-  // TODO: Add results for reusability, testability etc
-  // TODO: Check this repo for other todo's and solve them.
-  // TODO: Remove commented shit and test more?
 }
 
 public void runTests() {

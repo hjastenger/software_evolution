@@ -36,7 +36,7 @@ public int ccCount(Declaration methodAst) {
   return result;
 }
 
-private map[str, real] riskLevels(list[loc] methods) {
+private map[str, real] riskLevels(list[loc] methods, M3 m3) {
   map[str, real] risks = ("low" : 0.0, "moderate" : 0.0, "high" : 0.0, "veryHigh" : 0.0);
   int totalLoc = 0;
 
@@ -45,8 +45,8 @@ private map[str, real] riskLevels(list[loc] methods) {
   for(loc method <- methods) {
     // list[str]  = readFileLines(locMethod);
     // println(("" | it + e | str e <- henk));
-    ast = createAstFromFile(method, false);
-
+    ast = getMethodASTEclipse(method, m3);
+	println(ast);
     // int methodLines = linesPerMethod(method);
 
     visit(ast) {
@@ -74,7 +74,7 @@ private map[str, real] riskLevels(list[loc] methods) {
 
 public void cyclomaticComplexity(M3 m3) {
   list[loc] locFiles = toList(methods(m3));
-  map[str, real] riskLevels = riskLevels(locFiles);
+  map[str, real] riskLevels = riskLevels(locFiles, m3);
   // str riskScore = rating(riskLevels);
   // println("--------- Complexity ---------");
   // resultsPrinter(riskLevels, riskScore);

@@ -30,6 +30,8 @@ public int ccCount(loc method) {
 
   if(!isEmpty(methodAst)) {
     result = 1;
+
+    // Partly inspired by http://www.rascal-mpl.org/#_Metrics
     visit (methodAst) {
       case (Stm)`if (<Expr _>) <Stm _>`: result +=1;
       case (Stm)`if (<Expr _>) <Stm _> else <Stm _>`: result +=1;

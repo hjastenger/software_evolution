@@ -15,50 +15,38 @@ import lang::java::\syntax::Java15;
 import assignments::helpers::Defaults;
 import assignments::metrics::LinesPerUnit;
 
-// Counts the cyclometic complexity of a method, by visiting each node and
-public int ccCount(loc method) {
-  str methodLoc = "<method>";
-  int result = 0;
-  Declaration methodAst;
+alias CCMapping = lrel[loc, int];
 
-  // Properly parse based on if ConstrDec or MethodDec
-  if(/constructor/ := methodLoc) {
-    methodAst = [n | /ConstrBody n := parse(#ConstrDec, method)];
-  } else if(/method/ := methodLoc) {
-    methodAst = [n | /MethodBody n := parse(#MethodDec, method)];
+int computeCC(methodLoc) {
+  result = 1;
+
+  visit (methodLoc) {
+    case (Stm)`if (<Expr _>) <Stm _>`: result +=1;
+    case (Stm)`if (<Expr _>) <Stm _> else <Stm _>`: result +=1;
+    case (Stm)`do <Stm _> while (<Expr _>);`: result += 1;
+    case (Stm)`while (<Expr _>) <Stm _>`: result += 1;
+    case (Stm)`for (<{Expr ","}* _>; <Expr? _>; <{Expr ","}*_>) <Stm _>` : result += 1;
+    case (Stm)`for (<LocalVarDec _> ; <Expr? e> ; <{Expr ","}* _>) <Stm _>`: result += 1;
+    case (Stm)`for (<FormalParam _> : <Expr _>) <Stm _>` : result += 1;
+    case (Expr)`<Expr _> <CondMid _> <Expr _>`: result +=1;
+    case (Expr)`<Expr _> && <Expr _>` : result += 1;
+    case (Expr)`<Expr _> || <Expr _>` : result += 1;
+    case (SwitchLabel)`case <Expr _> :` : result += 1;
+    case (CatchClause)`catch (<FormalParam _>) <Block _>` : result += 1;
   }
-
-  if(!isEmpty(methodAst)) {
-    result = 1;
-
-    // Partly inspired by http://www.rascal-mpl.org/#_Metrics
-    visit (methodAst) {
-      case (Stm)`if (<Expr _>) <Stm _>`: result +=1;
-      case (Stm)`if (<Expr _>) <Stm _> else <Stm _>`: result +=1;
-      case (Stm)`do <Stm _> while (<Expr _>);`: result += 1;
-      case (Stm)`while (<Expr _>) <Stm _>`: result += 1;
-      case (Stm)`for (<{Expr ","}* _>; <Expr? _>; <{Expr ","}*_>) <Stm _>` : result += 1;
-      case (Stm)`for (<LocalVarDec _> ; <Expr? e> ; <{Expr ","}* _>) <Stm _>`: result += 1;
-      case (Stm)`for (<FormalParam _> : <Expr _>) <Stm _>` : result += 1;
-      case (Expr)`<Expr _> <CondMid _> <Expr _>`: result +=1;
-      case (Expr)`<Expr _> && <Expr _>` : result += 1;
-      case (Expr)`<Expr _> || <Expr _>` : result += 1;
-      case (SwitchLabel)`case <Expr _> :` : result += 1;
-      case (CatchClause)`catch (<FormalParam _>) <Block _>` : result += 1;
-    }
-  }
-
   return result;
 }
 
-private map[str, real] riskLevels(list[loc] locMethods) {
+public CCMapping getComplexityPerFunction(loc project) {
+  list [loc] files = [f | /file(f) <- crawl(project), f.extension == "java"];
+  return [<n@\loc, computeCC(n)> | decs <- files, /MethodDec n := parse(#start[CompilationUnit], decs, allowAmbiguity=true) || /ConstrDec n := parse(#start[CompilationUnit], decs, allowAmbiguity=true)];
+}
+
+private map[str, real] riskLevels(CCMapping locMethods) {
   map[str, real] risks = ("low" : 0.0, "moderate" : 0.0, "high" : 0.0, "veryHigh" : 0.0);
   int totalLoc = 0;
 
-  // get cyclomatic complexity, linecount and total count in one list iteration.
-  // Kept simple for performance.
-  for(loc method <- locMethods) {
-    int ccCount = ccCount(method);
+  for(<loc method, int ccCount> <- locMethods) {
     int countLines = linesPerMethod(method);
 
     if(ccCount <= 10) {
@@ -76,9 +64,9 @@ private map[str, real] riskLevels(list[loc] locMethods) {
   return riskPercentages(risks, totalLoc);
 }
 
-public void cyclomaticComplexity(M3 m3) {
-  list[loc] locMethods = toList(methods(m3));
-  map[str, real] riskLevels = riskLevels(locMethods);
+public void cyclomaticComplexity(loc m3) {
+  CCMapping result = getComplexityPerFunction(m3);
+  map[str, real] riskLevels = riskLevels(result);
   str riskScore = rating(riskLevels);
   println("--------- Complexity ---------");
   resultsPrinter(riskLevels, riskScore);

@@ -1,7 +1,13 @@
 public class ComplexityUnits {
   private str pizza = "";
 
+  /* Just random comments
+   *
+   */
   public ComplexityUnits() {
+    /* Just random comments
+     *
+     */
     this.pizza = "pizza";
 
     if(this.pizza != "") {
@@ -15,7 +21,13 @@ public class ComplexityUnits {
     if(true) return;
   }
 
+  /* Just random comments
+   *
+   */
   public static void ifElse() {
+    /* Just random comments
+     *
+     */
     if(true) {
       return;
     } else {

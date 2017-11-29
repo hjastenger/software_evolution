@@ -36,11 +36,10 @@ public void runMetrics(loc path) {
   M3 m3 = createM3FromDirectory(path);
   datetime startTime = now();
 
-  volume(m3)
+  volume(path);
   unitSize(m3);
-  cyclomaticComplexity(m3);
+  cyclomaticComplexity(path);
   duplication(path);
-  unitSize(m3);
   printTimeTaken(startTime, now());
 }
 

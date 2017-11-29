@@ -34,7 +34,7 @@ public void mapF(list[&T] elems, fn) {
   }
 }
 
-public list[str] filterL(list[str] vals, fun) {
+public list[&T] filterL(list[&T] vals, fun) {
   return [ x | x <- vals, fun(x)];
 }
 

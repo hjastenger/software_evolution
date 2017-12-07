@@ -4,10 +4,17 @@ import IO;
 import String;
 import ParseTree;
 import Set;
-import util::FileSystem;
 import DateTime;
+import List;
+import Node;
 
 import lang::java::m3::Core;
+import lang::java::m3::AST;
+
+import lang::java::jdt::m3::Core;
+import lang::java::\syntax::Java15;
+
+import util::FileSystem;
 
 import assignments::helpers::Defaults;
 import assignments::metrics::Complexity;
@@ -25,6 +32,29 @@ import specs::duplication::Duplication;
 public void runHSQL() {
   loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
   runMetrics(hsql);
+}
+
+public void something() {
+  loc fixtures = |cwd:///specs/fixtures|;
+  str fileName = "Something";
+  list [loc] files = [f | /file(f) <- crawl(fixtures), f.extension == "java" && contains(f.path, fileName)];
+  /* println(files); */
+  /* list [node] tree = [parse(#start[CompilationUnit], decs, allowAmbiguity=true) | decs <- files]; */
+  Tree tree = parse(#start[CompilationUnit], files[0], allowAmbiguity=true);
+
+  node next;
+  next = visit(tree) {
+    case (VarDecId)`<Id x>` => (VarDecId)`x`
+    case (VarDecId)`<Id x> <Dim* ys>` => (VarDecId)`x<Dim* ys>`
+  }
+
+  /* next = visit(next) { */
+    /* case node m => "My_node"(m) */
+  /* } */
+
+  str unparsed = unparse(next);
+  list [str] splitted = split("\n", unparsed);
+  println(splitted);
 }
 
 public void runSmall() {

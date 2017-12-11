@@ -3,6 +3,46 @@ body {
   padding: 0;
 }
 
-.App {
-  text-align: center;
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.divider {
+  flex: 0.2%;
+  border-left: #dfdfdf dashed;
+  height: 100vh;
+}
+
+.left-pane, .right-pane {
+  flex: 49.9%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+
+.card {
+  display: block;
+  /*width: inherit;*/
+  padding: 10px;
+  margin: 5%;
+  border: 1px solid black;
+}
+
+.card:hover {
+  background-color: black;
+}
+
+.code-content {
+  /*display: none;*/
+  width: inherit;
+  height: 100vh;
+  background-color: black;
+}
+
+.close-button {
+  position: absolute;
+  top: 10;
+  right: 0;
+  font-size: 20pt;
 }

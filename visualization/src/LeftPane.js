@@ -7,16 +7,16 @@ class LeftPane extends Component {
     super(props);
 
     this.state = {
-      files: this.props.state.files
+      files: this.props.state.files,
+      changeHook: this.props.changeHook
     }
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="left-pane">
         <Code selected={this.state.selected} />
-        { this.state.files.map((file) => <File key={ file.loc } file={ file } />) }
+        { this.state.files.map((file) => <File key={ file.loc } file={ file } changeHook={this.state.changeHook} />) }
       </div>
     );
   }

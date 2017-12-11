@@ -19,11 +19,6 @@ class Code extends Component {
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }
 
   render() {
-    // let henk =  `flex: 49.9%;
-    //     flex-direction: row;
-    //     flex-wrap: wrap;
-    //     height: 100vh;`;
-
     if(this.state.selected) {
       return (
         <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
@@ -33,15 +28,15 @@ class Code extends Component {
         </div>
 
         <SyntaxHighlighter
-        language='javascript'
-        style={docco}
-        wrapLines={true}
-        showLineNumbers={true}
-        lineStyle={lineNr => {
-          if (this.range(this.state.selected.fromLine, this.state.selected.toLine).includes(lineNr)) {
-            return { backgroundColor: 'red' };
-          }
-        }}
+          language='javascript'
+          style={docco}
+          wrapLines={true}
+          showLineNumbers={true}
+          lineStyle={lineNr => {
+            if (this.range(this.state.selected.fromLine, this.state.selected.toLine).includes(lineNr)) {
+              return { backgroundColor: 'red' };
+            }
+          }}
         >
         {this.state.selected.content}
         </SyntaxHighlighter>

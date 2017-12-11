@@ -17,15 +17,13 @@ class App extends Component {
             {
               name: 'one()',
               fromLine: 0,
-              toLine: 10,
-              original: true
+              toLine: 10
               // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
             },
             {
               name: 'two()',
               fromLine: 0,
-              toLine: 10,
-              original: true
+              toLine: 10
               // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
             },
           ]
@@ -34,11 +32,13 @@ class App extends Component {
     };
   }
 
-  changeSelected(props) {
-    this.setState({
-      selected: props.selected,
-      files: props.files
-    });
+  changeSelected(method) {
+    console.log(method);
+
+    // this.setState({
+    //   selected: props.selected,
+    //   files: props.files
+    // });
   }
 
   render() {

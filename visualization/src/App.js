@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LeftPane from './LeftPane';
 import RightPane from './RightPane';
+import data from './json/test.json';
 
 class App extends Component {
   constructor() {
@@ -15,38 +16,7 @@ class App extends Component {
         method: {},
         loc: null
       },
-      files: [
-        {
-          loc: 'specs/fixtures/complexity/ComplexityUnits.java',
-          methods: [
-            {
-              name: 'onlyIf()',
-              fromLine: 20,
-              toLine: 23,
-              dupLocs: [
-                {
-                  name: 'onlyIf()',
-                  loc: 'specs/fixtures/duplication/Duplication.java',
-                  fromLine: 20,
-                  toLine: 23
-                },
-                {
-                  name: 'singleCatch()',
-                  loc: 'specs/fixtures/duplication/Duplication.java',
-                  fromLine: 75,
-                  toLine: 81
-                }
-              ]
-            },
-            {
-              name: 'singleCatch()',
-              fromLine: 75,
-              toLine: 81
-              // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
-            },
-          ]
-        }
-      ]
+      files: data.files
     };
   }
 

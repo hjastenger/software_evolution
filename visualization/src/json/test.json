@@ -1,0 +1,33 @@
+{
+	"files": [
+    {
+      "loc": "specs/fixtures/complexity/ComplexityUnits.java",
+      "methods": [
+        {
+          "name": "onlyIf()",
+          "fromLine": 20,
+          "toLine": 23,
+          "dupLocs": [
+            {
+              "name": "onlyIf()",
+              "loc": "specs/fixtures/duplication/Duplication.java",
+              "fromLine": 20,
+              "toLine": 23
+            },
+            {
+              "name": "singleCatch()",
+              "loc": "specs/fixtures/duplication/Duplication.java",
+              "fromLine": 75,
+              "toLine": 81
+            }
+          ]
+        },
+        {
+          "name": "singleCatch()",
+          "fromLine": 75,
+          "toLine": 81
+        }
+      ]
+    }
+	]
+}

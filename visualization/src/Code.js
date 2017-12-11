@@ -42,13 +42,12 @@ class Code extends Component {
   }
 
   render() {
-    console.log(this.state.content)
     return (
       this.state.name ?
         <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
           <div className='title-pane'>
             <div className='title'>{this.state.name}</div>
-            <div className='close-button' onClick={this.toggleDisplay.bind(this)}>X</div>
+            <div className='close-button' onClick={this.toggleDisplay.bind(this)}>x</div>
           </div>
 
           <SyntaxHighlighter

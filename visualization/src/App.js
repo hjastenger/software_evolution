@@ -13,20 +13,31 @@ class App extends Component {
       },
       files: [
         {
-          // TODO: Remove "content" as this should be read from file
           loc: 'specs/fixtures/complexity/ComplexityUnits.java',
-          content: 'def henk; binding.pry; end',
           methods: [
             {
-              name: 'one()',
-              fromLine: 0,
-              toLine: 10
-              // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
+              name: 'onlyIf()',
+              fromLine: 20,
+              toLine: 23,
+              dupLocs: [
+                {
+                  name: 'onlyIf()',
+                  loc: 'specs/fixtures/duplication/Duplication.java',
+                  fromLine: 20,
+                  toLine: 23
+                },
+                {
+                  name: 'singleCatch()',
+                  loc: 'specs/fixtures/duplication/Duplication.java',
+                  fromLine: 75,
+                  toLine: 81
+                }
+              ]
             },
             {
-              name: 'two()',
-              fromLine: 0,
-              toLine: 10
+              name: 'singleCatch()',
+              fromLine: 75,
+              toLine: 81
               // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
             },
           ]
@@ -49,7 +60,7 @@ class App extends Component {
       <div className="container">
         <LeftPane state={this.state} changeHook={this.changeSelected.bind(this)} />
         <div className="divider" />
-        <RightPane />
+        <RightPane dupLocs={this.state.selected.method.dupLocs} />
       </div>
     );
   }

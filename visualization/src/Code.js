@@ -8,11 +8,7 @@ class Code extends Component {
     super(props);
 
     this.state = {
-      display: true,
-      loc: 'path/to/file.jpg',
-      fromLine: 1,
-      toLine: 2,
-      original: true
+      selected: this.props.selected
     }
   }
 
@@ -23,33 +19,37 @@ class Code extends Component {
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }
 
   render() {
-    let henk =  `flex: 49.9%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        height: 100vh;`;
+    // let henk =  `flex: 49.9%;
+    //     flex-direction: row;
+    //     flex-wrap: wrap;
+    //     height: 100vh;`;
 
-    return (
-      <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
+    if(this.state.selected) {
+      return (
+        <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
         <div className='title-pane'>
-          <div className='title'>{this.state.loc}</div>
-          <div className='close-button' onClick={this.toggleDisplay.bind(this)}>X</div>
+        <div className='title'>{this.state.selected.loc}</div>
+        <div className='close-button' onClick={this.toggleDisplay.bind(this)}>X</div>
         </div>
 
         <SyntaxHighlighter
-          language='javascript'
-          style={docco}
-          wrapLines={true}
-          showLineNumbers={true}
-          lineStyle={lineNr => {
-            if (this.range(this.state.fromLine, this.state.toLine).includes(lineNr)) {
-              return { backgroundColor: 'red' };
-            }
-          }}
+        language='javascript'
+        style={docco}
+        wrapLines={true}
+        showLineNumbers={true}
+        lineStyle={lineNr => {
+          if (this.range(this.state.selected.fromLine, this.state.selected.toLine).includes(lineNr)) {
+            return { backgroundColor: 'red' };
+          }
+        }}
         >
-          {henk}
+        {this.state.selected.content}
         </SyntaxHighlighter>
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return(<div />);
+    }
   }
 }
 

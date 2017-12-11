@@ -26,7 +26,7 @@ class Code extends Component {
     });
 
     fetch(newProps.selected.loc)
-      .then((res) => console.log(res))
+      .then((res) => res.text().then((text) => this.setState({ content: text })))
       .catch(() => console.warn("Couldn't fetch data"));
   }
 

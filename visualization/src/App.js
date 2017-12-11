@@ -14,7 +14,7 @@ class App extends Component {
       files: [
         {
           // TODO: Remove "content" as this should be read from file
-          loc: 'public/specs/fixtures/complexity/ComplexityUnits.java',
+          loc: 'specs/fixtures/complexity/ComplexityUnits.java',
           content: 'def henk; binding.pry; end',
           methods: [
             {

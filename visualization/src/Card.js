@@ -6,12 +6,13 @@ class Card extends Component {
 
     this.state = {
       method: this.props.method,
+      loc: this.props.loc,
       changeHook: this.props.changeHook
     }
   }
 
   openCodeViewer() {
-    this.state.changeHook(this.state.method);
+    this.state.changeHook(this.state);
   }
 
   render() {

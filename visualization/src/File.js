@@ -15,7 +15,7 @@ class File extends Component {
     return (
       <React.Fragment>
         <h2>{ this.state.file.loc }</h2>
-        { this.state.file.methods.map((method) => <Card key={ method.name } method={ method } changeHook= {this.state.changeHook} />) }
+        { this.state.file.methods.map((method) => <Card key={ method.name } method={ method } loc={this.state.file.loc} changeHook= {this.state.changeHook} />) }
       </React.Fragment>
     );
   }

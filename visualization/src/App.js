@@ -7,11 +7,14 @@ class App extends Component {
     super();
 
     this.state = {
-      selected: null,
+      selected: {
+        method: {},
+        loc: null
+      },
       files: [
         {
           // TODO: Remove "content" as this should be read from file
-          loc: 'file_one.jpg',
+          loc: 'public/specs/fixtures/complexity/ComplexityUnits.java',
           content: 'def henk; binding.pry; end',
           methods: [
             {
@@ -32,13 +35,13 @@ class App extends Component {
     };
   }
 
-  changeSelected(method) {
-    console.log(method);
-
-    // this.setState({
-    //   selected: props.selected,
-    //   files: props.files
-    // });
+  changeSelected(state) {
+    this.setState({
+      selected: {
+        method: state.method,
+        loc: state.loc
+      }
+    });
   }
 
   render() {

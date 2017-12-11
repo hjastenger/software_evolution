@@ -8,8 +8,15 @@ class LeftPane extends Component {
 
     this.state = {
       files: this.props.state.files,
+      selected: {},
       changeHook: this.props.changeHook
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      selected: newProps.state.selected
+    });
   }
 
   render() {

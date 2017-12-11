@@ -2,15 +2,34 @@ import React, { Component } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/styles/hljs';
 
-
 class Code extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selected: this.props.selected
-    }
+      name: null,
+      loc: null,
+      content: '<div />',
+      fromLine: null,
+      toLine: null,
+      display: false
+    };
   }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      name: newProps.selected.method.name,
+      loc: newProps.selected.loc,
+      fromLine: newProps.selected.method.fromLine,
+      toLine: newProps.selected.method.toLine,
+      display: true
+    });
+
+    fetch(newProps.selected.loc)
+      .then((res) => console.log(res))
+      .catch(() => console.warn("Couldn't fetch data"));
+  }
+
 
   toggleDisplay() {
     this.setState({ display: !this.state.display });
@@ -18,33 +37,37 @@ class Code extends Component {
 
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }
 
-  render() {
-    if(this.state.selected) {
-      return (
-        <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
-        <div className='title-pane'>
-        <div className='title'>{this.state.selected.loc}</div>
-        <div className='close-button' onClick={this.toggleDisplay.bind(this)}>X</div>
-        </div>
+  hasName() {
+    return this.state
+  }
 
-        <SyntaxHighlighter
-          language='javascript'
-          style={docco}
-          wrapLines={true}
-          showLineNumbers={true}
-          lineStyle={lineNr => {
-            if (this.range(this.state.selected.fromLine, this.state.selected.toLine).includes(lineNr)) {
-              return { backgroundColor: 'red' };
-            }
-          }}
-        >
-        {this.state.selected.content}
-        </SyntaxHighlighter>
+  render() {
+    console.log(this.state.content)
+    return (
+      this.state.name ?
+        <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
+          <div className='title-pane'>
+            <div className='title'>{this.state.name}</div>
+            <div className='close-button' onClick={this.toggleDisplay.bind(this)}>X</div>
+          </div>
+
+          <SyntaxHighlighter
+            language='javascript'
+            style={docco}
+            wrapLines={true}
+            showLineNumbers={true}
+            lineStyle={lineNr => {
+              if (this.range(this.state.fromLine, this.state.toLine).includes(lineNr)) {
+                return { backgroundColor: 'red' };
+              }
+            }}
+          >
+            {this.state.content}
+          </SyntaxHighlighter>
         </div>
+      :
+        <div />
       );
-    } else {
-      return(<div />);
-    }
   }
 }
 

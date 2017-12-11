@@ -14,13 +14,15 @@ class LeftPane extends Component {
             {
               name: 'one()',
               fromLine: 0,
-              toLine: 10
+              toLine: 10,
+              original: true
               // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
             },
             {
               name: 'two()',
               fromLine: 0,
-              toLine: 10
+              toLine: 10,
+              original: true
               // dupLocs: ["path/to/file_two.jpg", "path/to/file_three.jpg"]
             },
           ]

@@ -15,7 +15,7 @@ class LeftPane extends Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      selected: newProps.state.selected
+      selected: newProps.state.leftSelected
     });
   }
 

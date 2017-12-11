@@ -17,6 +17,7 @@ class Code extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log(newProps);
     this.setState({
       name: newProps.selected.method.name,
       loc: newProps.selected.loc,

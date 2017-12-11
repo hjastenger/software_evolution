@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from './Card';
-import Code from './Code';
+// import Code from './Code';
 // import File from './File';
 
 class RightPane extends Component {
@@ -22,7 +22,6 @@ class RightPane extends Component {
   render() {
     return (
       <div className="right-pane">
-        <Code selected={this.selected} />
         { this.state.dupLocs.map((method) => <Card key={ method.name } method={ method } loc={method.loc} />)}
       </div>
     );

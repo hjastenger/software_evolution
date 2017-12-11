@@ -7,7 +7,11 @@ class App extends Component {
     super();
 
     this.state = {
-      selected: {
+      leftSelected: {
+        method: {},
+        loc: null
+      },
+      rightSelected: {
         method: {},
         loc: null
       },
@@ -46,9 +50,18 @@ class App extends Component {
     };
   }
 
-  changeSelected(state) {
+  changeLeftSelected(state) {
     this.setState({
-      selected: {
+      leftSelected: {
+        method: state.method,
+        loc: state.loc
+      }
+    });
+  }
+
+  changeRightSelected(state) {
+    this.setState({
+      rightSelected: {
         method: state.method,
         loc: state.loc
       }
@@ -58,9 +71,9 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <LeftPane state={this.state} changeHook={this.changeSelected.bind(this)} />
+        <LeftPane state={this.state} changeHook={this.changeLeftSelected.bind(this)} />
         <div className="divider" />
-        <RightPane dupLocs={this.state.selected.method.dupLocs} />
+        <RightPane dupLocs={this.state.leftSelected.method.dupLocs} changeHook={this.changeRightSelected.bind(this)}/>
       </div>
     );
   }

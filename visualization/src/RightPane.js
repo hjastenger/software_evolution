@@ -8,15 +8,25 @@ class RightPane extends Component {
 
     this.state = {
       dupLocs: [],
-      selected: {},
-      changeHook: this.props.changeHook
+      selected: {
+        method: {},
+        loc: null
+      }
     }
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      dupLocs: newProps.dupLocs,
-      selected: newProps.selected
+      dupLocs: newProps.dupLocs
+    });
+  }
+
+  changeRightSelected(props) {
+    this.setState({
+      selected: {
+        method: props.method,
+        loc: props.loc
+      }
     });
   }
 
@@ -29,7 +39,7 @@ class RightPane extends Component {
       <div className="right-pane">
         { this.isNotEmpty(this.state.selected) ? <Code selected={this.state.selected} color="#ff788b" /> : <div /> }
         <h2 className='duplication-header'>Duplication</h2>
-        { this.state.dupLocs.map((method) => <Card key={ method.name } method={ method } loc={method.loc} changeHook={this.state.changeHook} />)}
+        { this.state.dupLocs.map((method) => <Card key={ method.name } method={ method } loc={method.loc} changeHook={this.changeRightSelected.bind(this)} />)}
       </div>
     );
   }

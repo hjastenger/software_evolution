@@ -7,12 +7,18 @@ class Card extends Component {
     this.state = {
       method: this.props.method,
       loc: this.props.loc,
-      changeHook: this.props.changeHook
+      changeHook: this.props.changeHook,
+      changeDupLocs: this.props.changeDupLocs,
+      inLeftPane: this.props.inLeftPane || false
     }
   }
 
   openCodeViewer() {
     this.state.changeHook(this.state);
+
+    if(this.state.inLeftPane) {
+      this.state.changeDupLocs(this.state.method.dupLocs);
+    }
   }
 
   render() {

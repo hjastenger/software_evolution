@@ -7,15 +7,21 @@ class LeftPane extends Component {
     super(props);
 
     this.state = {
-      files: this.props.state.files,
-      selected: {},
-      changeHook: this.props.changeHook
+      files: this.props.files,
+      selected: {
+        method: {},
+        loc: null
+      },
+      changeDupLocs: this.props.changeDupLocs
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  changeLeftSelected(props) {
     this.setState({
-      selected: newProps.state.leftSelected
+      selected: {
+        method: props.method,
+        loc: props.loc
+      }
     });
   }
 
@@ -23,7 +29,7 @@ class LeftPane extends Component {
     return (
       <div className="left-pane">
         <Code selected={this.state.selected} color="#99ffaf" />
-        { this.state.files.map((file) => <File key={ file.loc } file={ file } changeHook={this.state.changeHook} />) }
+        { this.state.files.map((file) => <File key={ file.loc } file={ file } changeHook={this.changeLeftSelected.bind(this)} changeDupLocs={this.state.changeDupLocs} />) }
       </div>
     );
   }

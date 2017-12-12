@@ -8,42 +8,21 @@ class App extends Component {
     super();
 
     this.state = {
-      leftSelected: {
-        method: {},
-        loc: null
-      },
-      rightSelected: {
-        method: {},
-        loc: null
-      },
+      dupLocs: [],
       files: data.files
     };
   }
 
-  changeLeftSelected(props) {
-    this.setState({
-      leftSelected: {
-        method: props.method,
-        loc: props.loc
-      }
-    });
-  }
-
-  changeRightSelected(props) {
-    this.setState({
-      rightSelected: {
-        method: props.method,
-        loc: props.loc
-      }
-    });
+  changeDupLocs(dupLocs) {
+    this.setState({ dupLocs });
   }
 
   render() {
     return (
       <div className="container">
-        <LeftPane state={this.state} changeHook={this.changeLeftSelected.bind(this)} />
+        <LeftPane files={this.state.files} changeDupLocs={this.changeDupLocs.bind(this)}/>
         <div className="divider" />
-        <RightPane selected={this.state.rightSelected} dupLocs={this.state.leftSelected.method.dupLocs} changeHook={this.changeRightSelected.bind(this)}/>
+        <RightPane dupLocs={this.state.dupLocs} />
       </div>
     );
   }

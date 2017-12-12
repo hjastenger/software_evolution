@@ -7,7 +7,8 @@ class File extends Component {
 
     this.state = {
       file: this.props.file,
-      changeHook: this.props.changeHook
+      changeHook: this.props.changeHook,
+      changeDupLocs: this.props.changeDupLocs
     }
   }
 
@@ -15,7 +16,7 @@ class File extends Component {
     return (
       <React.Fragment>
         <h2 className='file-header'>{ this.state.file.loc }</h2>
-        { this.state.file.methods.map((method) => <Card key={ method.name } method={ method } loc={this.state.file.loc} changeHook= {this.state.changeHook} />) }
+        { this.state.file.methods.map((method) => <Card key={ method.name } inLeftPane={true} method={ method } loc={this.state.file.loc} changeHook={this.state.changeHook} changeDupLocs={this.state.changeDupLocs} />) }
       </React.Fragment>
     );
   }

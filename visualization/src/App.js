@@ -43,7 +43,7 @@ class App extends Component {
       <div className="container">
         <LeftPane state={this.state} changeHook={this.changeLeftSelected.bind(this)} />
         <div className="divider" />
-        <RightPane dupLocs={this.state.leftSelected.method.dupLocs} changeHook={this.changeRightSelected.bind(this)}/>
+        <RightPane selected={this.state.rightSelected} dupLocs={this.state.leftSelected.method.dupLocs} changeHook={this.changeRightSelected.bind(this)}/>
       </div>
     );
   }

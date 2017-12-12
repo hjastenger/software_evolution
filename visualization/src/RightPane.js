@@ -16,7 +16,7 @@ class RightPane extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       dupLocs: newProps.dupLocs,
-      selected: newProps.selected || {}
+      selected: newProps.selected
     });
   }
 

@@ -17,7 +17,7 @@ class Card extends Component {
 
   render() {
     return (
-      <div className="card" onClick={this.openCodeViewer.bind(this)}>{ this.props.method.name }</div>
+      <div className="card" onClick={() => { this.openCodeViewer() }}>{ this.props.method.name }</div>
     );
   }
 }

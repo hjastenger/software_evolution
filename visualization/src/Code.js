@@ -31,15 +31,11 @@ class Code extends Component {
       .catch(() => console.warn("Couldn't fetch data"));
   }
 
-  toggleDisplay() {
-    this.setState({ display: !this.state.display });
+  hide() {
+    this.setState({display: false});
   }
 
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }
-
-  hasName() {
-    return this.state
-  }
 
   render() {
     return (
@@ -47,7 +43,7 @@ class Code extends Component {
         <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
           <div className='title-pane'>
             <div className='title'>{this.state.name}</div>
-            <div className='close-button' onClick={this.toggleDisplay.bind(this)}>x</div>
+            <div className='close-button' onClick={this.hide.bind(this)}>x</div>
           </div>
 
           <SyntaxHighlighter

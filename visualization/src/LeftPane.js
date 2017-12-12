@@ -22,7 +22,7 @@ class LeftPane extends Component {
   render() {
     return (
       <div className="left-pane">
-        <Code selected={this.state.selected} />
+        <Code selected={this.state.selected} color="#99ffaf" />
         { this.state.files.map((file) => <File key={ file.loc } file={ file } changeHook={this.state.changeHook} />) }
       </div>
     );

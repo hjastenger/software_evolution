@@ -22,7 +22,7 @@ body {
   height: 100vh;
 }
 
-.file-header {
+.file-header, .duplication-header {
   padding-left: 10px;
 }
 
@@ -35,7 +35,7 @@ body {
 }
 
 .card:hover {
-  background-color: black;
+  background-color: #dfdfdf;
 }
 
 .code-content {

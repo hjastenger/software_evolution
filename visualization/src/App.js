@@ -20,20 +20,20 @@ class App extends Component {
     };
   }
 
-  changeLeftSelected(state) {
+  changeLeftSelected(props) {
     this.setState({
       leftSelected: {
-        method: state.method,
-        loc: state.loc
+        method: props.method,
+        loc: props.loc
       }
     });
   }
 
-  changeRightSelected(state) {
+  changeRightSelected(props) {
     this.setState({
       rightSelected: {
-        method: state.method,
-        loc: state.loc
+        method: props.method,
+        loc: props.loc
       }
     });
   }

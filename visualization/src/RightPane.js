@@ -9,23 +9,29 @@ class RightPane extends Component {
 
     this.state = {
       dupLocs: [],
+      visibility: false
     }
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
     this.setState({
-      dupLocs: newProps.dupLocs
+      dupLocs: newProps.dupLocs,
+      visibility: true
     });
   }
 
   render() {
     return (
       <div className="right-pane">
-        { this.state.dupLocs.map((method) => <Card key={ method.name } method={ method } loc={method.loc} />)}
+        <h2 className='duplication-header'>Duplication</h2>
+        <div className="right-panel-cards" style={{display: this.state.visibility ? 'block' : 'none'}}>
+          { this.state.dupLocs.map((method) => <Card key={ method.name } method={ method } loc={method.loc} />)}
+        </div>
       </div>
     );
   }
 }
 
 export default RightPane;
+
+// <Code selected={this.state.selected} color="#ff788b"/>

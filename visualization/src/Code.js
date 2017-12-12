@@ -12,12 +12,12 @@ class Code extends Component {
       content: '<div />',
       fromLine: null,
       toLine: null,
-      display: false
+      display: false,
+      color: this.props.color
     };
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
     this.setState({
       name: newProps.selected.method.name,
       loc: newProps.selected.loc,
@@ -30,7 +30,6 @@ class Code extends Component {
       .then((res) => res.text().then((text) => this.setState({ content: text })))
       .catch(() => console.warn("Couldn't fetch data"));
   }
-
 
   toggleDisplay() {
     this.setState({ display: !this.state.display });
@@ -58,7 +57,7 @@ class Code extends Component {
             showLineNumbers={true}
             lineStyle={lineNr => {
               if (this.range(this.state.fromLine, this.state.toLine).includes(lineNr)) {
-                return { backgroundColor: 'red' };
+                return { backgroundColor: this.state.color };
               }
             }}
           >

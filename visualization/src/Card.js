@@ -17,13 +17,15 @@ class Card extends Component {
     this.state.changeHook(this.state);
 
     if(this.state.inLeftPane) {
-      this.state.changeDupLocs(this.state.method.dupLocs);
+      this.state.changeDupLocs(this.props.method.dupLocs);
     }
   }
 
   render() {
     return (
-      <div className="card" onClick={() => { this.openCodeViewer() }}>{ this.props.method.name }</div>
+      <div className="card" onClick={() => { this.openCodeViewer() }}>
+        { this.props.method.name }
+      </div>
     );
   }
 }

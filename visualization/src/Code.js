@@ -32,7 +32,7 @@ class Code extends Component {
   }
 
   hide() {
-    this.setState({display: false});
+    this.props.hideCallback();
   }
 
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }

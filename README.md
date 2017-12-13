@@ -34,8 +34,8 @@ The visualization works best on the chrome browser.
   2. run: `yarn install`
 3. When everything is installed:
   1. run the visualization with `yarn start`
-  2. A local webserver will be spawned and exposed on `http://localhost:3000`.
-  3. Visit `http://localhost:3000` and enjoy
+  2. A local webserver will be spawned and exposed on http://localhost:3000.
+  3. Visit http://localhost:3000 and enjoy
 
 # notes:
 1. re-importing a spec after changing an imported module in that spec does not

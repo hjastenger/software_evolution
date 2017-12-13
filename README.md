@@ -15,6 +15,28 @@ Repository for the course Software Evolution
   3. Run metrics on SmallSQL: `runSmall();`
   4. Run tests: `runTests();`
 
+## Series 2
+Series 2 is split into two parts: Clone detection and Visualization. Follow the
+below steps to properly configure both components.
+
+### Clone detection
+...
+
+### Visualization
+To get the visualization working you need to fulfill the below steps. Keep in
+mind that data has to be generated with the clone detection tool first.
+
+The visualization works best on the chrome browser.
+
+1. Install yarn first from https://yarnpkg.com/lang/en/docs/install/
+2. Install dependencies
+  1. cd into the visualization directory: `cd visualization`
+  2. run: `yarn install`
+3. When everything is installed:
+  1. run the visualization with `yarn start`
+  2. A local webserver will be spawned and exposed on `http://localhost:3000`.
+  3. Visit `http://localhost:3000` and enjoy
+
 # notes:
 1. re-importing a spec after changing an imported module in that spec does not
    reload the dependencies the spec has. Rascal does this in a shallow way. To

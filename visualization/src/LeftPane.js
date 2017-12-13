@@ -6,6 +6,10 @@ class LeftPane extends Component {
   constructor(props) {
     super(props);
 
+    this.renderCode = this.renderCode.bind(this);
+    this.renderFiles = this.renderFiles.bind(this);
+    this.hideSelected = this.hideSelected.bind(this);
+
     this.state = {
       files: this.props.files,
       selected: {
@@ -25,11 +29,41 @@ class LeftPane extends Component {
     });
   }
 
+  hideSelected() {
+    this.setState({
+      selected: {
+        method: {},
+        loc: null
+      }
+    });
+  }
+
+  renderCode() {
+    if(this.state.selected) {
+      return (
+        <Code selected={ this.state.selected }
+          hideCallback={ this.hideSelected }
+          color="#99ffaf" />
+      );
+    } else {
+      return <div />;
+    }
+  }
+
+  renderFiles(files) {
+    return files.map((file) => {
+      return <File key={ file.loc }
+      file={ file }
+      changeHook={this.changeLeftSelected.bind(this)}
+      changeDupLocs={this.props.changeDupLocs} />;
+    })
+  }
+
   render() {
     return (
       <div className="left-pane">
-        <Code selected={this.state.selected} color="#99ffaf" />
-        { this.state.files.map((file) => <File key={ file.loc } file={ file } changeHook={this.changeLeftSelected.bind(this)} changeDupLocs={this.state.changeDupLocs} />) }
+        { this.renderCode() }
+        { this.renderFiles(this.state.files) }
       </div>
     );
   }

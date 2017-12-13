@@ -16,10 +16,6 @@ class Code extends Component {
       color: this.props.color
     };
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("nextState", nextState.name, this.state.name);
-    return this.state.name !== nextState.name;
-  }
 
   componentWillReceiveProps(newProps) {
     this.setState({
@@ -30,9 +26,6 @@ class Code extends Component {
       display: true
     });
 
-    // TODO: Check op side-effects. Mogelijk gaat de async fetch tegen de
-    // async van de setState hierboven werken, waardoor data incosistentie
-    // ontstaat.
     fetch(newProps.selected.loc)
       .then((res) => res.text().then((text) => this.setState({ content: text })))
       .catch(() => console.warn("Couldn't fetch data"));

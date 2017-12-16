@@ -21,22 +21,25 @@ str CLASS_NAME = "Duplication";
 
 public void duplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "Duplication");
-  list[str] lines = trimFile(sourceFile);
-  result = duplicationPerFile(lines, "Duplication");
+  /* list[str] lines = trimFile(sourceFile); */
+  /* result = duplication(lines, "Duplication"); */
+  result = duplication(sourceFile);
   testComplexity(result, 7, "DuplicationTest");
 }
 
 public void tripleDuplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "TripleExample");
-  list[str] lines = trimFile(sourceFile);
-  result = duplicationPerFile(lines, "TripleExample");
+  /* list[str] lines = trimFile(sourceFile); */
+  /* result = duplicationPerFile(lines, "TripleExample"); */
+  result = duplication(sourceFile);
   testComplexity(result, 14, "TripleExample");
 }
 
 public void doubleDuplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "NotImportantNameForCollision");
-  list[str] lines = trimFile(sourceFile);
-  result = duplicationPerFile(lines, "NotImportantNameForCollision");
+  /* list[str] lines = trimFile(sourceFile); */
+  /* result = duplicationPerFile(lines, "NotImportantNameForCollision"); */
+  result = duplication(sourceFile);
   testComplexity(result, 20, "NotImportantNameForCollision");
 }
 
@@ -69,8 +72,8 @@ public void typeTwoExpandByOne(loc filename) {
   loc sourceFile = getFileFromM3(filename, cname);
   result = typeTwoPerFile(sourceFile, 4);
   list[str] pattern = result[0][0];
-  GEntry firstMatch = result[0][1][0];
-  GEntry secondMatch = result[0][1][1];
+  Match firstMatch = result[0][1][0];
+  Match secondMatch = result[0][1][1];
 
   assertEquality(size(result), 1, "<cname> a total of 1 patterns should be found");
   assertEquality(size(result[0][0]), 5, "<cname> length of the pattern should be 5");
@@ -99,8 +102,8 @@ public void typeTwoExpandByTwo(loc filename) {
   loc sourceFile = getFileFromM3(filename, cname);
   result = typeTwoPerFile(sourceFile, 4);
   list[str] pattern = result[0][0];
-  GEntry firstMatch = result[0][1][0];
-  GEntry secondMatch = result[0][1][1];
+  Match firstMatch = result[0][1][0];
+  Match secondMatch = result[0][1][1];
 
   assertEquality(size(result), 1, "<cname> a total of 1 patterns should be found");
   assertEquality(size(result[0][0]), 6, "<cname> length of the pattern should be 6");
@@ -134,10 +137,10 @@ public void typeTwoSubClassClone(loc filename) {
 
   assertEquality(size(result), 2, "<cname> a total of 2 patterns should be found");
 
-  fiveMatch = filterL(result, bool(tuple[list[str], list[GEntry]] res) { return size(res[0]) == 5; });
+  fiveMatch = filterL(result, bool(tuple[list[str], list[Match]] res) { return size(res[0]) == 5; });
   list[str] fivePattern = fiveMatch[0][0];
-  GEntry firstMatch = fiveMatch[0][1][0];
-  GEntry secondMatch = fiveMatch[0][1][1];
+  Match firstMatch = fiveMatch[0][1][0];
+  Match secondMatch = fiveMatch[0][1][1];
 
   assertEquality(size(fiveMatch), 1, "<cname> only one pattern should be of length 5");
   assertEquality(size(fivePattern), 5, "<cname> length of biggest pattern check");
@@ -159,13 +162,13 @@ public void typeTwoSubClassClone(loc filename) {
   assertEquality(secondMatch[3][1], 20, "<cname> line number check");
   assertEquality(secondMatch[4][1], 21, "<cname> line number check");
 
-  fourMatch = filterL(result, bool(tuple[list[str], list[GEntry]] res) { 
+  fourMatch = filterL(result, bool(tuple[list[str], list[Match]] res) { 
     return size(res[0]) == 4 && size(res[1]) == 3;
   });
   list[str] fourPattern = fourMatch[0][0];
-  GEntry firstFourMatch = fourMatch[0][1][0];
-  GEntry secondFourMatch = fourMatch[0][1][1];
-  GEntry thirdFourMatch = fourMatch[0][1][2];
+  Match firstFourMatch = fourMatch[0][1][0];
+  Match secondFourMatch = fourMatch[0][1][1];
+  Match thirdFourMatch = fourMatch[0][1][2];
 
   assertEquality(size(fourMatch), 1, "<cname> only one pattern with length 4 should contain 3 locs");
   assertEquality(size(fourPattern), 4, "<cname> the pattern with 3 locations should have a length of 4");
@@ -192,9 +195,9 @@ public void typeTwoSubClassClone(loc filename) {
 }
 
 list[&T] testables = [
-  /* duplicationTest, */
-  /* doubleDuplicationTest, */
-  /* tripleDuplicationTest, */
+  duplicationTest,
+  doubleDuplicationTest,
+  tripleDuplicationTest,
   typeTwoSimple,
   typeTwoSubClassClone,
   typeTwoExpandByOne,

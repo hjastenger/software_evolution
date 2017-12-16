@@ -6,6 +6,7 @@ import Map;
 import Set;
 import IO;
 import String;
+import DateTime;
 
 import assignments::metrics::LinesPerFile;
 import assignments::metrics::LinesPerUnit;
@@ -15,9 +16,6 @@ import lang::java::\syntax::Java15;
 
 alias MatchList = map[Pattern, Matches];
 
-/* alias lineIndiced = lrel[str, str]; */
-/* alias locIndiced = lrel[loc, int, str]; */
-
 alias Pattern = list[str];
 alias Matches = list[Match];
 alias Match = list[MatchLocation];
@@ -25,6 +23,10 @@ alias Match = list[MatchLocation];
 alias MatchLocation = tuple[loc, int];
 alias Location = tuple[loc, int];
 alias SourceLine = tuple[loc, int, str];
+
+public list[list[&T]] getWindows(list[&T] lines, int windowSize) {
+  return [lines[x..x+windowSize] | x<-[0..(size(lines)-(windowSize-1))]];
+}
 
 public MatchList copyML(MatchList ml) {
   MatchList copiedList = ();
@@ -37,6 +39,14 @@ public MatchList copyML(MatchList ml) {
 public MatchList filterL(MatchList ml, fn) {
   MatchList copiedList = ();
   for(Pattern pattern <- ml, fn(ml[pattern])) {
+    copiedList[pattern] = ml[pattern];
+  }
+  return copiedList;
+}
+
+public MatchList filterP(MatchList ml, fn) {
+  MatchList copiedList = ();
+  for(Pattern pattern <- ml, fn(pattern)) {
     copiedList[pattern] = ml[pattern];
   }
   return copiedList;
@@ -63,56 +73,74 @@ public tuple[list[str], list[Location]] createLocIndexFromRange(loc fileLoc, int
       }
     }
   }
-  return <sourceLines, result>;
+  if(size(result) == amount) {
+    return <sourceLines, result>;
+  } else {
+    throw "file out of bound";
+  }
 }
 
 public MatchList expand(MatchList matchList, int windowSize) {
-  MatchList copiedMatchList = copyML(matchList);
+  MatchList newList = ();
 
-  for(Pattern pattern <- matchList, size(pattern) == windowSize) {
+  startOne = now();
+  for(Pattern pattern <- matchList) {
     for(Match match <- matchList[pattern]) {
-      loc filename = match[0][0];
-      int lower = match[0][1];
+      try {
+        loc filename = match[0][0];
+        int lower = match[0][1];
 
-      ranges = createLocIndexFromRange(filename, lower, windowSize+1);
-      list[str] increasedWindow = ranges[0];
+        ranges = createLocIndexFromRange(filename, lower, windowSize+1);
+        list[str] increasedWindow = ranges[0];
 
-      if(copiedMatchList[increasedWindow]?) {
-        copiedMatchList[increasedWindow] += [ranges[1]];
-      } else {
-        copiedMatchList[increasedWindow] = [ranges[1]];
-      }
+        if(newList[increasedWindow]?) {
+          newList[increasedWindow] += [ranges[1]];
+        } else {
+          newList[increasedWindow] = [ranges[1]];
+        }
+      } catch: continue;
     }
   }
+  println("Expanding windows time: <now()-startOne>.");
 
-  copiedMatchList = filterL(copiedMatchList, bool(matches) {
-    return size(matches) >= 2;
+  startTwo = now();
+  newList = filterP(newList, bool(Pattern pattern) {
+    return size(newList[pattern]) >= 2;
   });
+  println("Filtering time: <now()-startTwo>.");
 
-  if(copiedMatchList == matchList) {
+  println("Done working throug window <windowSize>");
+
+  startThree = now();
+  if(size(newList) == 0) {
     return matchList;
   } else {
-    differ = copiedMatchList - matchList;
-    for(vals <- differ) {
+    println("Found <size(newList)> expanded duplicates");
+
+    for(vals <- newList) {
       list[str] firstBucketId = vals[0..windowSize];
-      if(copiedMatchList[firstBucketId]?) {
-        list[Location] newValues = [*x| x <- copiedMatchList[vals]];
-        list[Location] oldValues = [*x| x <- copiedMatchList[firstBucketId]];
+      if(matchList[firstBucketId]?) {
+        list[Location] newValues = [*x| x <- newList[vals]];
+        list[Location] oldValues = [*x| x <- matchList[firstBucketId]];
         if(isSubset(oldValues, newValues)) {
-          copiedMatchList = delete(copiedMatchList, firstBucketId);
+          matchList = delete(matchList, firstBucketId);
         }
       }
 
       list[str] secondBucketId = vals[1..windowSize+1];
-      if(copiedMatchList[secondBucketId]?) {
-        secondNewBucket = [*x| x <- copiedMatchList[vals]];
-        secondOldBucket = [*x| x <- copiedMatchList[secondBucketId]];
+      if(matchList[secondBucketId]?) {
+        secondNewBucket = [*x| x <- newList[vals]];
+        secondOldBucket = [*x| x <- matchList[secondBucketId]];
         if(isSubset(secondOldBucket, secondNewBucket)) {
-          copiedMatchList = delete(copiedMatchList, secondBucketId);
+          matchList = delete(matchList, secondBucketId);
         }
       }
     };
-    return expand(copiedMatchList, windowSize+1);
+
+    println("Removing subset duplicates time: <now()-startThree>.");
+    println("Expanding by increasing the window size by 1");
+
+    return matchList + expand(newList, windowSize+1);
   }
 }
 

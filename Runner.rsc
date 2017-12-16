@@ -67,6 +67,7 @@ public void runDuplication() {
   loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
 
   duplicationRunner(fixtures);
+  /* duplicationTypeTwo(smallsql, 4); */
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

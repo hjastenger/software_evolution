@@ -34,69 +34,6 @@ public void runHSQL() {
   runMetrics(hsql);
 }
 
-alias lineIndiced = lrel[str, str];
-
-public list[lineIndiced] parseFiles(loc fileLoc) {
-  Tree tree = parse(#start[CompilationUnit], fileLoc, allowAmbiguity=true);
-
-  node next;
-  next = visit(tree) {
-    case (VarDecId)`<Id x>` => (VarDecId)`x`
-    case (VarDecId)`<Id x> <Dim* ys>` => (VarDecId)`x<Dim* ys>`
-  }
-
-  str unparsed = unparse(next);
-  list [str] sourceLines = split("\n", unparsed);
-
-  sourceLines = trimMultilineComments(sourceLines);
-  sourceLines = mapper(sourceLines, trimSinglelineComments);
-
-  lineIndiced something = [<"<fileLoc>:<x>", sourceLines[x]> | x <- [0..size(sourceLines)], !isEmptyLine(sourceLines[x])];
-  list[lineIndiced] windowed = getWindows(something, 4);
-  return windowed;
-}
-
-public list[lineIndiced] getWindows(lineIndiced lines, int windowSize) {
-  return [lines[x..x+windowSize] | x<-[0..(size(lines)-(windowSize-1))]];
-}
-
-alias GlobalList = map[list[str], list[str]];
-alias GlobEntry = tuple[list[str], list[str]];
-
-public GlobalList updateRoot(GlobalList rootT, list[str] pattern) {
-  val = mapper(pattern, trimPrepend);
-  if(rootT[val]?) {
-    rootT[val] += pattern;
-  } else {
-    rootT[val] = [];
-  }
-  return rootT;
-}
-
-public void something() {
-  loc fixtures = |cwd:///specs/fixtures|;
-  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
-  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
-  list[lineIndiced] windows = [*parseFiles(f) | /file(f) <- crawl(hsql), f.extension == "java"];
-
-  GlobalList dupContainer = ();
-
-  mapF(windows, void (lineIndiced window) {
-    windowLines = mapper(window, str(tuple[str, str] lines) { return lines[1]; });
-    lineNumbers = mapper(window, str(tuple[str, str] lines) { return lines[0]; });
-
-    if(dupContainer[windowLines]?) {
-      dupContainer[windowLines] += lineNumbers;
-    } else {
-      dupContainer[windowLines] = lineNumbers;
-    }
-  });
-  
-  result = [<x,dupContainer[x]> | x <- dupContainer, size(dupContainer[x]) > 4];
-  iprintln(result);
-}
-<Something classname="something">
-
 public void runSmall() {
   loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
   runMetrics(smallsql);
@@ -121,6 +58,14 @@ public void runTests() {
   multilineRunner(fixtures);
   linesPerFileRunner(fixtures);
   complexityUnitsRunner(fixtures);
+  duplicationRunner(fixtures);
+}
+
+public void runDuplication() {
+  loc fixtures = |cwd:///specs/fixtures|;
+  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+
   duplicationRunner(fixtures);
 }
 

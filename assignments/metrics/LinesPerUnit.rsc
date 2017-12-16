@@ -8,10 +8,6 @@ import lang::java::m3::Core;
 
 import assignments::helpers::Defaults;
 
-public bool isEmptyLine(str line) {
-  return size(trim(line)) == 0;
-}
-
 public list[str] trimMethod(loc met) {
   list[str] funBody = readFileLines(met);
   funBody = trimMultilineComments(funBody);

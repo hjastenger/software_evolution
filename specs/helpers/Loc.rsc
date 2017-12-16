@@ -67,3 +67,14 @@ public void assertEquality(given, expected, TEST_NAME) {
     throw "Test failed!";
   }
 }
+
+public void testContains(str given, str expected, str TEST_NAME) {
+  if(contains(given, expected)) {
+    println("\t<ANSI_GREEN> <TEST_NAME> test succeeded! <ANSI_RESET>");
+  } else {
+    println("\t<ANSI_RED> <TEST_NAME> test failed! <ANSI_RESET>");
+    println("\t<ANSI_RED> Given: <given> <ANSI_RESET>");
+    println("\t<ANSI_RED> Expected: <expected> <ANSI_RESET>");
+    throw "Test failed!";
+  }
+}

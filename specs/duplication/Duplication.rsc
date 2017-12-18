@@ -13,6 +13,7 @@ import assignments::metrics::Duplication;
 import assignments::metrics::LinesPerFile;
 import assignments::helpers::Defaults;
 import assignments::helpers::Duplication;
+import Runner;
 
 import specs::helpers::Loc;
 import specs::helpers::M3;
@@ -48,24 +49,26 @@ public void typeTwoSimple(loc filename) {
   str cname = "BaseCaseFourLines";
   loc sourceFile = getFileFromM3(filename, cname);
   result = typeTwoPerFile(sourceFile, 4);
-  list[str] pattern = result[0][0];
-  Match firstMatch = result[0][1][0];
-  Match secondMatch = result[0][1][1];
+  runJSON(result);
+   
+  /* list[str] pattern = result[0][0]; */
+  /* Match firstMatch = result[0][1][0]; */
+  /* Match secondMatch = result[0][1][1]; */
 
-  testContains(pattern[0], "first", "<cname> first attribute check");
-  testContains(pattern[1], "second", "<cname> second attribute check");
-  testContains(pattern[2], "third", "<cname> third attribute check");
-  testContains(pattern[3], "}", "<cname> fifth attribute check");
+  /* testContains(pattern[0], "first", "<cname> first attribute check"); */
+  /* testContains(pattern[1], "second", "<cname> second attribute check"); */
+  /* testContains(pattern[2], "third", "<cname> third attribute check"); */
+  /* testContains(pattern[3], "}", "<cname> fifth attribute check"); */
 
-  assertEquality(firstMatch[0][1], 13, "<cname> line number check");
-  assertEquality(firstMatch[1][1], 14, "<cname> line number check");
-  assertEquality(firstMatch[2][1], 15, "<cname> line number check");
-  assertEquality(firstMatch[3][1], 16, "<cname> line number check");
+  /* assertEquality(firstMatch[0][1], 13, "<cname> line number check"); */
+  /* assertEquality(firstMatch[1][1], 14, "<cname> line number check"); */
+  /* assertEquality(firstMatch[2][1], 15, "<cname> line number check"); */
+  /* assertEquality(firstMatch[3][1], 16, "<cname> line number check"); */
 
-  assertEquality(secondMatch[0][1], 19, "<cname> line number check");
-  assertEquality(secondMatch[1][1], 20, "<cname> line number check");
-  assertEquality(secondMatch[2][1], 21, "<cname> line number check");
-  assertEquality(secondMatch[3][1], 22, "<cname> line number check");
+  /* assertEquality(secondMatch[0][1], 19, "<cname> line number check"); */
+  /* assertEquality(secondMatch[1][1], 20, "<cname> line number check"); */
+  /* assertEquality(secondMatch[2][1], 21, "<cname> line number check"); */
+  /* assertEquality(secondMatch[3][1], 22, "<cname> line number check"); */
 }
 
 public void typeTwoExpandByOne(loc filename) {
@@ -200,10 +203,10 @@ list[&T] testables = [
   duplicationTest,
   /* doubleDuplicationTest, */
   /* tripleDuplicationTest, */
-  typeTwoSimple,
-  typeTwoSubClassClone,
-  typeTwoExpandByOne,
-  typeTwoExpandByTwo
+  typeTwoSimple
+  /* typeTwoSubClassClone, */
+  /* typeTwoExpandByOne, */
+  /* typeTwoExpandByTwo */
 ];
 
 public void duplicationRunner(file) {

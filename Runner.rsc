@@ -66,8 +66,76 @@ public void runDuplication() {
   loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
   loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
 
-  /* duplicationRunner(fixtures); */
-  duplicationTypeTwo(hsql, 6);
+  duplicationRunner(fixtures);
+  /* duplicationTypeTwo(hsql, 6); */
+}
+
+public void runJSON(result) {
+  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+
+  /* result = duplicationTypeTwo(smallsql, 6); */
+
+  JSONentries = "";
+  for(entry <- result) {
+    list[str] pattern = entry[0];
+    list[lrel[loc, int]] matches = entry[1];
+
+    JSONpattern = ""; 
+    for(pat <- pattern) {
+      str escaped = replaceAll(pat, "\"", "\'") + "\n";
+      
+      if(last(pattern) == pat) {
+        JSONpattern += "\"<escaped>\"";
+        continue;
+      }
+      JSONpattern += "\"<escaped>\",";
+    };
+    JSONpatternlines = "\"pattern\": [<JSONpattern>],";
+    locations = "";
+    JSONmatches = "\"matches\": <size(matches)>,";
+    JSONnumberOfLines = "\"total_lines\": <size(matches)*size(pattern)>,";
+
+    for(match <- matches) {
+      list[int] linenumbers = [];
+      loc filename = match[0][0];
+
+      JSONlines = "";
+
+      for(row <- match) {
+        linenumbers += row[1];
+      };
+
+      for(linenumber <- linenumbers) {
+        if(last(linenumbers) == linenumber) {
+          JSONlines += "<linenumber>";
+          continue;
+        }
+        JSONlines += "<linenumber>,";
+      };
+
+      /* JSONlinenumber = "\"lines\": [<JSONlines>]"; */
+      if(last(matches) == match) {
+        locations += "{\"location\": \"<filename>\", \"lines\": [<JSONlines>]}";
+      } else {
+        locations += "{\"location\": \"<filename>\", \"lines\": [<JSONlines>]},";
+      }
+
+      /* println(match[0]); */
+    };
+
+    JSONrow = "{<JSONpatternlines> <JSONmatches> <JSONnumberOfLines> \"locations\": [<locations>]}";
+    if(last(result) == entry) {
+      /* JSONentries += "{<JSONpatternlines> <JSONmatches>\"locations\": [<locations>]}"; */
+      JSONentries += "<JSONrow>";
+    } else {
+      /* JSONentries += "{<JSONpatternlines> \"locations\": [<locations>]},"; */
+      JSONentries += "<JSONrow>,";
+    }
+  };
+  JSONheader = "{\"files\": [<JSONentries>]}";
+  writeFile(|cwd:///visualization/src/json/| + "something.json", JSONheader);
+  /* print(JSONheader); */
+
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

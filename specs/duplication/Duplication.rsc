@@ -17,6 +17,8 @@ import assignments::helpers::Duplication;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
+import lang::java::\syntax::Java15;
+
 str CLASS_NAME = "Duplication";
 
 public void duplicationTest(loc filename) {
@@ -41,6 +43,20 @@ public void doubleDuplicationTest(loc filename) {
   /* result = duplicationPerFile(lines, "NotImportantNameForCollision"); */
   result = duplication(sourceFile);
   testComplexity(result, 20, "NotImportantNameForCollision");
+}
+
+public void booleanTest(loc filename) {
+  str cname = "Normalization";
+  loc sourceFile = getFileFromM3(filename, cname);
+
+  Tree tree = parse(#start[CompilationUnit], sourceFile, allowAmbiguity=true);
+  println(tree);
+  println("hoi");
+  // Tree normalised = normalise(tree);
+
+  // result = normalise(sourceFile);
+  // iprintln(result);
+
 }
 
 public void typeTwoSimple(loc filename) {
@@ -162,7 +178,7 @@ public void typeTwoSubClassClone(loc filename) {
   assertEquality(secondMatch[3][1], 20, "<cname> line number check");
   assertEquality(secondMatch[4][1], 21, "<cname> line number check");
 
-  fourMatch = filterL(result, bool(tuple[list[str], list[Match]] res) { 
+  fourMatch = filterL(result, bool(tuple[list[str], list[Match]] res) {
     return size(res[0]) == 4 && size(res[1]) == 3;
   });
   list[str] fourPattern = fourMatch[0][0];
@@ -195,13 +211,14 @@ public void typeTwoSubClassClone(loc filename) {
 }
 
 list[&T] testables = [
-  duplicationTest,
-  doubleDuplicationTest,
-  tripleDuplicationTest,
-  typeTwoSimple,
-  typeTwoSubClassClone,
-  typeTwoExpandByOne,
-  typeTwoExpandByTwo
+  // duplicationTest,
+  // doubleDuplicationTest,
+  // tripleDuplicationTest,
+  // typeTwoSimple,
+  // typeTwoSubClassClone,
+  // typeTwoExpandByOne,
+  // typeTwoExpandByTwo
+  booleanTest
 ];
 
 public void duplicationRunner(file) {

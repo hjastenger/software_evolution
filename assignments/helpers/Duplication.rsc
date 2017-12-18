@@ -145,7 +145,25 @@ public MatchList expand(MatchList matchList, int windowSize) {
 }
 
 public Tree normalise(Tree ctree) {
+  bool x = true;
+
   return visit(ctree) {
+    // Function names
+    // Function params
+    // Function param types
+    // functions decs
+
+    // Types (rename all to boolean)
+    // case (PrimType)`<NumType \_>` => (PrimType)`boolean`
+
+    // literals
+    // case (Literal) \_ => (Literal)`<BoolLiteral x>`
+    case (BoolLiteral) \_ => (BoolLiteral) `true`
+    case (FloatLiteral) \_ => (FloatLiteral) `0.0`
+    case (CharLiteral) \_ => (CharLiteral) `'a'`
+    case (StringLiteral) \_ => (StringLiteral) `abc`
+
+    // names of variables
     case (VarDecId)`<Id x>` => (VarDecId)`x`
     case (VarDecId)`<Id x> <Dim* ys>` => (VarDecId)`x<Dim* ys>`
   }

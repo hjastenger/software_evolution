@@ -145,8 +145,6 @@ public MatchList expand(MatchList matchList, int windowSize) {
 }
 
 public Tree normalise(Tree ctree) {
-  bool x = true;
-
   return visit(ctree) {
     // // Method names
     // case \method(x, _, y, z, q) => \method(x, "method", y, z, q)

@@ -13,36 +13,33 @@ import assignments::metrics::Duplication;
 import assignments::metrics::LinesPerFile;
 import assignments::helpers::Defaults;
 import assignments::helpers::Duplication;
-import Runner;
 
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
-import lang::java::\syntax::Java15;
-
 str CLASS_NAME = "Duplication";
 
 public void duplicationTest(loc filename) {
-  loc sourceFile = getFileFromM3(filename, "Duplication");
-  list[str] lines = trimFile(sourceFile);
-  result = duplication(lines, "Duplication");
-  result = duplication(sourceFile);
-  testComplexity(result, 7, "DuplicationTest");
+  // loc sourceFile = getFileFromM3(filename, "Duplication");
+  // list[str] lines = trimFile(sourceFile);
+  // result = duplication(lines, "Duplication");
+  // result = duplication(sourceFile);
+  // testComplexity(result, 7, "DuplicationTest");
   duplicationTypeTwo(filename, 4);
 }
 
 public void tripleDuplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "TripleExample");
-  list[str] lines = trimFile(sourceFile);
-  result = duplicationPerFile(lines, "TripleExample");
+  // list[str] lines = trimFile(sourceFile);
+  // result = duplicationPerFile(lines, "TripleExample");
   result = duplication(sourceFile);
   testComplexity(result, 14, "TripleExample");
 }
 
 public void doubleDuplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "NotImportantNameForCollision");
-  list[str] lines = trimFile(sourceFile);
-  result = duplicationPerFile(lines, "NotImportantNameForCollision");
+  // list[str] lines = trimFile(sourceFile);
+  // result = duplicationPerFile(lines, "NotImportantNameForCollision");
   result = duplication(sourceFile);
   testComplexity(result, 20, "NotImportantNameForCollision");
 }
@@ -80,7 +77,6 @@ public void typeTwoSimple(loc filename) {
   str cname = "BaseCaseFourLines";
   loc sourceFile = getFileFromM3(filename, cname);
   result = typeTwoPerFile(sourceFile, 4);
-  runJSON(result);
 
   list[str] pattern = result[0][0];
   Match firstMatch = result[0][1][0];
@@ -231,14 +227,14 @@ public void typeTwoSubClassClone(loc filename) {
 }
 
 list[&T] testables = [
-  // duplicationTest,
-  // doubleDuplicationTest,
-  // tripleDuplicationTest,
+  // normalisationTest
+  duplicationTest,
+  // // doubleDuplicationTest,
+  // // tripleDuplicationTest,
   typeTwoSimple,
   typeTwoSubClassClone,
   typeTwoExpandByOne,
-  typeTwoExpandByTwo,
-  normalisationTest
+  typeTwoExpandByTwo
 ];
 
 public void duplicationRunner(file) {

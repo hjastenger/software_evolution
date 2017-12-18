@@ -134,12 +134,12 @@ public Tree normalise(Tree ctree) {
     // Niet gelukt
 
     // literals
-    case (BoolLiteral) \_ => (BoolLiteral) `true`
-    case (FloatLiteral) \_ => (FloatLiteral) `0.0`
-    case (CharLiteral) \_ => (CharLiteral) `'a'`
-    case (StringLiteral) \_ => (StringLiteral) `"a"`
-    case (IntLiteral) \_ => (IntLiteral) `0`
-    case (ClassLiteral) \_ => (ClassLiteral) `Object.class`
+    // case (BoolLiteral) \_ => (BoolLiteral) `true`
+    // case (FloatLiteral) \_ => (FloatLiteral) `0.0`
+    // case (CharLiteral) \_ => (CharLiteral) `'a'`
+    // case (StringLiteral) \_ => (StringLiteral) `"a"`
+    // case (IntLiteral) \_ => (IntLiteral) `0`
+    // case (ClassLiteral) \_ => (ClassLiteral) `Object.class`
 
     // names of variables and params
     case (VarDecId)`<Id x>` => (VarDecId)`x`

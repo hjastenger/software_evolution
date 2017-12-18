@@ -68,7 +68,7 @@ public void runCodeDuplication(loc path, str filename) {
 }
 
 public void runDuplicationTests() {
-  loc fixtures = |cwd:///specs/fixtures/TypeTwo|;
+  loc fixtures = |cwd:///specs/fixtures/duplication/TypeTwo|;
   duplicationRunner(fixtures);
 }
 

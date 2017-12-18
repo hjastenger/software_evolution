@@ -148,22 +148,26 @@ public Tree normalise(Tree ctree) {
   bool x = true;
 
   return visit(ctree) {
-    // Function names
-    // Function params
-    // Function param types
-    // functions decs
+    // // Method names
+    // case \method(x, _, y, z, q) => \method(x, "method", y, z, q)
+		// case \method(x, _, y, z) => \method(x, "method", y, z)
+    // case (MethodName) `<Id \_>` => (MethodName)`<Id henk>`
 
-    // Types (rename all to boolean)
-    // case (PrimType)`<NumType \_>` => (PrimType)`boolean`
+    // Method param types
+    // case (PrimType) `<NumType \_>` => (PrimType) `boolean`
+
+    // functioncall
+    // Niet gelukt
 
     // literals
-    // case (Literal) \_ => (Literal)`<BoolLiteral x>`
     case (BoolLiteral) \_ => (BoolLiteral) `true`
     case (FloatLiteral) \_ => (FloatLiteral) `0.0`
     case (CharLiteral) \_ => (CharLiteral) `'a'`
-    case (StringLiteral) \_ => (StringLiteral) `abc`
+    case (StringLiteral) \_ => (StringLiteral) `"a"`
+    case (IntLiteral) \_ => (IntLiteral) `0`
+    case (ClassLiteral) \_ => (ClassLiteral) `Object.class`
 
-    // names of variables
+    // names of variables and params
     case (VarDecId)`<Id x>` => (VarDecId)`x`
     case (VarDecId)`<Id x> <Dim* ys>` => (VarDecId)`x<Dim* ys>`
   }

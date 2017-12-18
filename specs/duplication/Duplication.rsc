@@ -45,18 +45,33 @@ public void doubleDuplicationTest(loc filename) {
   testComplexity(result, 20, "NotImportantNameForCollision");
 }
 
-public void booleanTest(loc filename) {
+public void normalisationTest(loc filename) {
   str cname = "Normalization";
   loc sourceFile = getFileFromM3(filename, cname);
 
   Tree tree = parse(#start[CompilationUnit], sourceFile, allowAmbiguity=true);
-  println(tree);
-  println("hoi");
-  // Tree normalised = normalise(tree);
+  Tree normalised = normalise(tree);
 
-  // result = normalise(sourceFile);
-  // iprintln(result);
+  // Test boolRename
+  testContains("<normalised>", "boolean x = true;", "booleanRenameTest");
 
+  // Test floatRename
+  testContains("<normalised>", "float x = 0.0;", "floatRenameTest");
+
+  // Test charRename
+  testContains("<normalised>", "char x = \'a\';", "charRenameTest");
+
+  // Test stringRename
+  testContains("<normalised>", "String x = \"a\";", "stringRenameTest");
+
+  // Test intRename
+  testContains("<normalised>", "int x = 0;", "intRename");
+
+  // Test classLitRename
+  testContains("<normalised>", "Class\<String\> x = Object.class;", "classLitRename");
+
+  // Test paramsRename
+  testContains("<normalised>", "int x, String x, char x, float x, boolean x", "paramsRename");
 }
 
 public void typeTwoSimple(loc filename) {
@@ -211,14 +226,14 @@ public void typeTwoSubClassClone(loc filename) {
 }
 
 list[&T] testables = [
-  // duplicationTest,
-  // doubleDuplicationTest,
-  // tripleDuplicationTest,
-  // typeTwoSimple,
-  // typeTwoSubClassClone,
-  // typeTwoExpandByOne,
-  // typeTwoExpandByTwo
-  booleanTest
+  duplicationTest,
+  doubleDuplicationTest,
+  tripleDuplicationTest,
+  typeTwoSimple,
+  typeTwoSubClassClone,
+  typeTwoExpandByOne,
+  typeTwoExpandByTwo,
+  normalisationTest
 ];
 
 public void duplicationRunner(file) {

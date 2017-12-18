@@ -19,4 +19,20 @@ public class Normalization {
   public void stringRename() {
     String henk = "henk";
   }
+
+  public void intRename() {
+    int henk = 1337;
+  }
+
+  public void classLitRename() {
+    Class<String> henk = String.class;
+  }
+
+  public void paramsRename(int a, String b, char c, float d, boolean e) {
+    a = 1337;
+    b = "henk";
+    c = 'h';
+    d = 13.37;
+    e = false;
+  }
 }

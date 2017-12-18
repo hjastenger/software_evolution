@@ -231,9 +231,9 @@ public void typeTwoSubClassClone(loc filename) {
 }
 
 list[&T] testables = [
-  duplicationTest,
-  doubleDuplicationTest,
-  tripleDuplicationTest,
+  // duplicationTest,
+  // doubleDuplicationTest,
+  // tripleDuplicationTest,
   typeTwoSimple,
   typeTwoSubClassClone,
   typeTwoExpandByOne,

@@ -61,25 +61,33 @@ public void runTests() {
   duplicationRunner(fixtures);
 }
 
+public void runCodeDuplication(loc path, str filename) {
+  println("Saving json to <filename>");
+  result = duplicationTypeTwo(path, 3);
+  runJSON(result, filename);
+}
+
 public void runDuplicationTests() {
+  loc fixtures = |cwd:///specs/fixtures/TypeTwo|;
+  duplicationRunner(fixtures);
+}
+
+public void runDuplicationFixtures() {
   loc fixtures = |cwd:///specs/fixtures|;
-  result = duplicationTypeTwo(fixtures, 3);
-  runJSON(result, "fixtures.json");
+  runCodeDuplication(fixtures, "fixtures.json");
 }
 
 public void runDuplicationHSQL() {
   loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
-  result = duplicationTypeTwo(hsql, 3);
-  runJSON(result, "hsqldb.json");
+  runCodeDuplication(hsql, "hsqldb.json");
 }
 
 public void runDuplicationSmallSQL() {
   loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
-  result = duplicationTypeTwo(smallsql, 3);
-  runJSON(result, "smallsql.json");
+  runCodeDuplication(smallsql, "smallsql.json");
 }
 
-public void runJSON(result, filename) {
+private void runJSON(result, filename) {
   JSONentries = "";
   for(entry <- result) {
     list[str] pattern = entry[0];
@@ -139,7 +147,6 @@ public void runJSON(result, filename) {
   };
   JSONheader = "{\"files\": [<JSONentries>]}";
   writeFile(|cwd:///visualization/src/json/| + filename, JSONheader);
-  /* print(JSONheader); */
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

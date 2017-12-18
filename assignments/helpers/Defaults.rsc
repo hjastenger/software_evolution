@@ -15,6 +15,10 @@ public lrel[&L, &I] orderBy(lrel[&L, &I] arr, lrel[&L, &I] result) {
   return result;
 }
 
+public bool isEmptyLine(str line) {
+  return size(trim(line)) == 0;
+}
+
 public lrel[&T, &K] insertInRelation(tuple[&T, &K] item, lrel[&T, &K] arr) {
   if([H, *T] := arr) {
       if(item[1] <= H[1]) {
@@ -24,6 +28,13 @@ public lrel[&T, &K] insertInRelation(tuple[&T, &K] item, lrel[&T, &K] arr) {
       }
   } else {
     return [item];
+  }
+}
+
+public void mapF(lrel[&T, &K, &V] elems, fn) {
+  if([H, *T] := elems) {
+    fn(H);
+    mapF(T, fn);
   }
 }
 

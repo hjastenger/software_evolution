@@ -4,10 +4,17 @@ import IO;
 import String;
 import ParseTree;
 import Set;
-import util::FileSystem;
 import DateTime;
+import List;
+import Node;
 
 import lang::java::m3::Core;
+import lang::java::m3::AST;
+
+import lang::java::jdt::m3::Core;
+import lang::java::\syntax::Java15;
+
+import util::FileSystem;
 
 import assignments::helpers::Defaults;
 import assignments::metrics::Complexity;
@@ -52,6 +59,15 @@ public void runTests() {
   linesPerFileRunner(fixtures);
   complexityUnitsRunner(fixtures);
   duplicationRunner(fixtures);
+}
+
+public void runDuplication() {
+  loc fixtures = |cwd:///specs/fixtures|;
+  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+
+  /* duplicationRunner(fixtures); */
+  duplicationTypeTwo(hsql, 6);
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

@@ -28,14 +28,6 @@ public list[list[&T]] getWindows(list[&T] lines, int windowSize) {
   return [lines[x..x+windowSize] | x<-[0..(size(lines)-(windowSize-1))]];
 }
 
-public MatchList copyML(MatchList ml) {
-  MatchList copiedList = ();
-  for(Pattern pattern <- ml) {
-    copiedList[pattern] = ml[pattern];
-  }
-  return copiedList;
-}
-
 public MatchList filterL(MatchList ml, fn) {
   MatchList copiedList = ();
   for(Pattern pattern <- ml, fn(ml[pattern])) {
@@ -52,45 +44,38 @@ public MatchList filterP(MatchList ml, fn) {
   return copiedList;
 }
 
-public tuple[list[str], list[Location]] createLocIndexFromRange(loc fileLoc, int lower, int amount) {
-  Tree tree = parse(#start[CompilationUnit], fileLoc, allowAmbiguity=true);
-  Tree normalised = normalise(tree);
+public tuple[list[str], list[Location]] getRangeFromSource(map[loc, lrel[int, str]] sourceMap, loc fileLoc, int lower, int amount) {
+  if(sourceMap[fileLoc]?) {
+    list[str] lines = [];
+    list[Location] locations = [];
 
-  list [str] normalisedLines = split("\n", unparse(normalised));
-  normalisedLines = trimMultilineComments(normalisedLines);
-  normalisedLines = mapper(normalisedLines, trimSinglelineComments);
-
-  list[Location] result = [];
-  list[str] sourceLines = [];
-  for(x <- [lower..(size(normalisedLines))]) {
-    line = normalisedLines[x];
-    if(!isEmptyLine(line)){
-      result += <fileLoc, x>;
-      sourceLines += line;
-
-      if(size(result) == amount) {
+    for(tuple[int,str] row <- sourceMap[fileLoc]) {
+      if(row[0] >= lower) {
+        locations += <fileLoc, row[0]>;
+        lines += row[1];
+      }
+      if(size(lines) == amount) {
         break;
       }
-    }
+    };
+    return <lines, locations>;
   }
-  if(size(result) == amount) {
-    return <sourceLines, result>;
-  } else {
-    throw "file out of bound";
-  }
+  throw "file doesnt exists";
 }
 
-public MatchList expand(MatchList matchList, int windowSize) {
+public MatchList expand(MatchList matchList, int windowSize, map[loc, lrel[int, str]] sourceMapper) {
+  globalSourceMapper = sourceMapper;
   MatchList newList = ();
 
   startOne = now();
   for(Pattern pattern <- matchList) {
     for(Match match <- matchList[pattern]) {
-      try {
-        loc filename = match[0][0];
-        int lower = match[0][1];
+      loc filename = match[0][0];
+      int lower = match[0][1];
 
-        ranges = createLocIndexFromRange(filename, lower, windowSize+1);
+      lastVal = last(sourceMapper[filename]);
+      if(lastVal[0] >= lower + windowSize+1) {
+        ranges = getRangeFromSource(sourceMapper, filename, lower, windowSize+1);
         list[str] increasedWindow = ranges[0];
 
         if(newList[increasedWindow]?) {
@@ -98,25 +83,17 @@ public MatchList expand(MatchList matchList, int windowSize) {
         } else {
           newList[increasedWindow] = [ranges[1]];
         }
-      } catch: continue;
+      }
     }
   }
-  println("Expanding windows time: <now()-startOne>.");
 
-  startTwo = now();
   newList = filterP(newList, bool(Pattern pattern) {
     return size(newList[pattern]) >= 2;
   });
-  println("Filtering time: <now()-startTwo>.");
 
-  println("Done working throug window <windowSize>");
-
-  startThree = now();
   if(size(newList) == 0) {
     return matchList;
   } else {
-    println("Found <size(newList)> expanded duplicates");
-
     for(vals <- newList) {
       list[str] firstBucketId = vals[0..windowSize];
       if(matchList[firstBucketId]?) {
@@ -137,10 +114,9 @@ public MatchList expand(MatchList matchList, int windowSize) {
       }
     };
 
-    println("Removing subset duplicates time: <now()-startThree>.");
-    println("Expanding by increasing the window size by 1");
+    print("Expanding windows time: <now()-startOne>.");
 
-    return matchList + expand(newList, windowSize+1);
+    return matchList + expand(newList, windowSize+1, sourceMapper);
   }
 }
 

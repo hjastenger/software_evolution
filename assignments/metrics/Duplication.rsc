@@ -8,6 +8,7 @@ import ParseTree;
 import Set;
 import Exception;
 import util::FileSystem;
+import DateTime;
 
 import lang::java::\syntax::Java15;
 import lang::java::m3::Core;
@@ -63,7 +64,7 @@ public int duplication(loc project) {
   return size(toSet(values));
 }
 
-public list[list[SourceLine]] parseFiles(loc fileLoc, int windowSize, int typeClone) {
+public tuple[loc, lrel[int, str]] getSourceLines(loc fileLoc, int  typeClone) {
   Tree tree = parse(#start[CompilationUnit], fileLoc, allowAmbiguity=true);
   list[str] lines = [];
 
@@ -77,15 +78,18 @@ public list[list[SourceLine]] parseFiles(loc fileLoc, int windowSize, int typeCl
   normalisedLines = trimMultilineComments(lines);
   normalisedLines = mapper(normalisedLines, trimSinglelineComments);
 
-  list[SourceLine] sourceLines = [<fileLoc, x, normalisedLines[x]> | x <- [0..size(normalisedLines)], !isEmptyLine(normalisedLines[x])];
-  list[list[SourceLine]] windowedSource = getWindows(sourceLines, windowSize);
-  return windowedSource;
+  return <fileLoc, [<x, normalisedLines[x]> | x <- [0..size(normalisedLines)], !isEmptyLine(normalisedLines[x])]>;
 }
 
 public lrel[Pattern, Matches] typeTwoPerFile(loc file, int windowSize) {
-  list[list[SourceLine]] windows = parseFiles(file, windowSize, 2);
-  println("done parsing");
+  source = getSourceLines(file, 2);
+  map[loc, lrel[int, str]] mappedSource = ();
+  mappedSource[source[0]] = source[1];
 
+  list[SourceLine] lines = [*[<x,y,ys> | <y,ys> <- mappedSource[x]] | x <- mappedSource];
+  list[list[SourceLine]] windows = getWindows(lines, windowSize);
+
+  println("done parsing");
   MatchList dupContainer = ();
 
   mapF(windows, void (list[SourceLine] window) {
@@ -105,16 +109,26 @@ public lrel[Pattern, Matches] typeTwoPerFile(loc file, int windowSize) {
 
   println("Done working throught initial window size");
 
-  duplicates = expand(duplicates, windowSize);
+  duplicates = expand(duplicates, windowSize, mappedSource);
    
   result = [<x,duplicates[x]> | x <- duplicates];
   return result;
 }
 
 public lrel[Pattern, Matches] duplicationTypeTwo(loc project, int windowSize) {
-  list[list[SourceLine]] windows = [*parseFiles(f, windowSize, 2) | /file(f) <- crawl(project), f.extension == "java"];
-  println("Done parsing");
+  startTime = now();
+  list[loc] files = [f| /file(f) <- crawl(project), f.extension == "java"];
+  map[loc, lrel[int, str]] mappedSource = ();
 
+  for(file <- files) {
+    source = getSourceLines(file, 2);
+    mappedSource[source[0]] = source[1];
+  };
+
+  list[SourceLine] lines = [*[<x,y,ys> | <y,ys> <- mappedSource[x]] | x <- mappedSource];
+  list[list[SourceLine]] windows = getWindows(lines, windowSize);
+
+  println("Done parsing");
   MatchList dupContainer = ();
 
   mapF(windows, void (list[SourceLine] window) {
@@ -128,15 +142,16 @@ public lrel[Pattern, Matches] duplicationTypeTwo(loc project, int windowSize) {
     }
   });
   
-  MatchList duplicates = filterP(dupContainer, bool(Pattern pattern) {
-    return size(dupContainer[pattern]) >= 2;
+  MatchList duplicates = filterL(dupContainer, bool(Matches matches) {
+    return size(matches) >= 2;
   });
 
   println("Done working throught initial window size");
 
-  duplicates = expand(duplicates, windowSize);
+  duplicates = expand(duplicates, windowSize, mappedSource);
    
   result = [<x,duplicates[x]> | x <- duplicates];
+  println("Finished in <now()-startTime>");
   return result;
 }
 

@@ -20,11 +20,12 @@ import specs::helpers::M3;
 str CLASS_NAME = "Duplication";
 
 public void duplicationTest(loc filename) {
-  loc sourceFile = getFileFromM3(filename, "Duplication");
+  /* loc sourceFile = getFileFromM3(filename, "Duplication"); */
   /* list[str] lines = trimFile(sourceFile); */
   /* result = duplication(lines, "Duplication"); */
-  result = duplication(sourceFile);
-  testComplexity(result, 7, "DuplicationTest");
+  /* result = duplication(sourceFile); */
+  /* testComplexity(result, 7, "DuplicationTest"); */
+  duplicationTypeTwo(filename, 4);
 }
 
 public void tripleDuplicationTest(loc filename) {
@@ -137,6 +138,7 @@ public void typeTwoSubClassClone(loc filename) {
 
   assertEquality(size(result), 2, "<cname> a total of 2 patterns should be found");
 
+  println(result[0][0]);
   fiveMatch = filterL(result, bool(tuple[list[str], list[Match]] res) { return size(res[0]) == 5; });
   list[str] fivePattern = fiveMatch[0][0];
   Match firstMatch = fiveMatch[0][1][0];
@@ -196,8 +198,8 @@ public void typeTwoSubClassClone(loc filename) {
 
 list[&T] testables = [
   duplicationTest,
-  doubleDuplicationTest,
-  tripleDuplicationTest,
+  /* doubleDuplicationTest, */
+  /* tripleDuplicationTest, */
   typeTwoSimple,
   typeTwoSubClassClone,
   typeTwoExpandByOne,

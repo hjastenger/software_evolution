@@ -61,13 +61,19 @@ public void runTests() {
   duplicationRunner(fixtures);
 }
 
-public void runDuplication() {
+public void runDuplicationTests() {
   loc fixtures = |cwd:///specs/fixtures|;
-  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
-  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  duplicationTypeTwo(fixtures, 3);
+}
 
-  /* duplicationRunner(fixtures); */
-  duplicationTypeTwo(hsql, 6);
+public void runDuplicationHSQL() {
+  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  duplicationTypeTwo(hsql, 3);
+}
+
+public void runDuplicationSmallSQL() {
+  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  duplicationTypeTwo(smallsql, 3);
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

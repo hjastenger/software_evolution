@@ -18,31 +18,62 @@ import Runner;
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
+import lang::java::\syntax::Java15;
+
 str CLASS_NAME = "Duplication";
 
 public void duplicationTest(loc filename) {
-  /* loc sourceFile = getFileFromM3(filename, "Duplication"); */
-  /* list[str] lines = trimFile(sourceFile); */
-  /* result = duplication(lines, "Duplication"); */
-  /* result = duplication(sourceFile); */
-  /* testComplexity(result, 7, "DuplicationTest"); */
+  loc sourceFile = getFileFromM3(filename, "Duplication");
+  list[str] lines = trimFile(sourceFile);
+  result = duplication(lines, "Duplication");
+  result = duplication(sourceFile);
+  testComplexity(result, 7, "DuplicationTest");
   duplicationTypeTwo(filename, 4);
 }
 
 public void tripleDuplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "TripleExample");
-  /* list[str] lines = trimFile(sourceFile); */
-  /* result = duplicationPerFile(lines, "TripleExample"); */
+  list[str] lines = trimFile(sourceFile);
+  result = duplicationPerFile(lines, "TripleExample");
   result = duplication(sourceFile);
   testComplexity(result, 14, "TripleExample");
 }
 
 public void doubleDuplicationTest(loc filename) {
   loc sourceFile = getFileFromM3(filename, "NotImportantNameForCollision");
-  /* list[str] lines = trimFile(sourceFile); */
-  /* result = duplicationPerFile(lines, "NotImportantNameForCollision"); */
+  list[str] lines = trimFile(sourceFile);
+  result = duplicationPerFile(lines, "NotImportantNameForCollision");
   result = duplication(sourceFile);
   testComplexity(result, 20, "NotImportantNameForCollision");
+}
+
+public void normalisationTest(loc filename) {
+  str cname = "Normalization";
+  loc sourceFile = getFileFromM3(filename, cname);
+
+  Tree tree = parse(#start[CompilationUnit], sourceFile, allowAmbiguity=true);
+  Tree normalised = normalise(tree);
+
+  // Test boolRename
+  testContains("<normalised>", "boolean x = true;", "booleanRenameTest");
+
+  // Test floatRename
+  testContains("<normalised>", "float x = 0.0;", "floatRenameTest");
+
+  // Test charRename
+  testContains("<normalised>", "char x = \'a\';", "charRenameTest");
+
+  // Test stringRename
+  testContains("<normalised>", "String x = \"a\";", "stringRenameTest");
+
+  // Test intRename
+  testContains("<normalised>", "int x = 0;", "intRename");
+
+  // Test classLitRename
+  testContains("<normalised>", "Class\<String\> x = Object.class;", "classLitRename");
+
+  // Test paramsRename
+  testContains("<normalised>", "int x, String x, char x, float x, boolean x", "paramsRename");
 }
 
 public void typeTwoSimple(loc filename) {
@@ -50,25 +81,25 @@ public void typeTwoSimple(loc filename) {
   loc sourceFile = getFileFromM3(filename, cname);
   result = typeTwoPerFile(sourceFile, 4);
   runJSON(result);
-   
-  /* list[str] pattern = result[0][0]; */
-  /* Match firstMatch = result[0][1][0]; */
-  /* Match secondMatch = result[0][1][1]; */
 
-  /* testContains(pattern[0], "first", "<cname> first attribute check"); */
-  /* testContains(pattern[1], "second", "<cname> second attribute check"); */
-  /* testContains(pattern[2], "third", "<cname> third attribute check"); */
-  /* testContains(pattern[3], "}", "<cname> fifth attribute check"); */
+  list[str] pattern = result[0][0];
+  Match firstMatch = result[0][1][0];
+  Match secondMatch = result[0][1][1];
 
-  /* assertEquality(firstMatch[0][1], 13, "<cname> line number check"); */
-  /* assertEquality(firstMatch[1][1], 14, "<cname> line number check"); */
-  /* assertEquality(firstMatch[2][1], 15, "<cname> line number check"); */
-  /* assertEquality(firstMatch[3][1], 16, "<cname> line number check"); */
+  testContains(pattern[0], "first", "<cname> first attribute check");
+  testContains(pattern[1], "second", "<cname> second attribute check");
+  testContains(pattern[2], "third", "<cname> third attribute check");
+  testContains(pattern[3], "}", "<cname> fifth attribute check");
 
-  /* assertEquality(secondMatch[0][1], 19, "<cname> line number check"); */
-  /* assertEquality(secondMatch[1][1], 20, "<cname> line number check"); */
-  /* assertEquality(secondMatch[2][1], 21, "<cname> line number check"); */
-  /* assertEquality(secondMatch[3][1], 22, "<cname> line number check"); */
+  assertEquality(firstMatch[0][1], 13, "<cname> line number check");
+  assertEquality(firstMatch[1][1], 14, "<cname> line number check");
+  assertEquality(firstMatch[2][1], 15, "<cname> line number check");
+  assertEquality(firstMatch[3][1], 16, "<cname> line number check");
+
+  assertEquality(secondMatch[0][1], 19, "<cname> line number check");
+  assertEquality(secondMatch[1][1], 20, "<cname> line number check");
+  assertEquality(secondMatch[2][1], 21, "<cname> line number check");
+  assertEquality(secondMatch[3][1], 22, "<cname> line number check");
 }
 
 public void typeTwoExpandByOne(loc filename) {
@@ -167,7 +198,7 @@ public void typeTwoSubClassClone(loc filename) {
   assertEquality(secondMatch[3][1], 20, "<cname> line number check");
   assertEquality(secondMatch[4][1], 21, "<cname> line number check");
 
-  fourMatch = filterL(result, bool(tuple[list[str], list[Match]] res) { 
+  fourMatch = filterL(result, bool(tuple[list[str], list[Match]] res) {
     return size(res[0]) == 4 && size(res[1]) == 3;
   });
   list[str] fourPattern = fourMatch[0][0];
@@ -201,12 +232,13 @@ public void typeTwoSubClassClone(loc filename) {
 
 list[&T] testables = [
   duplicationTest,
-  /* doubleDuplicationTest, */
-  /* tripleDuplicationTest, */
-  typeTwoSimple
-  /* typeTwoSubClassClone, */
-  /* typeTwoExpandByOne, */
-  /* typeTwoExpandByTwo */
+  doubleDuplicationTest,
+  tripleDuplicationTest,
+  typeTwoSimple,
+  typeTwoSubClassClone,
+  typeTwoExpandByOne,
+  typeTwoExpandByTwo,
+  normalisationTest
 ];
 
 public void duplicationRunner(file) {

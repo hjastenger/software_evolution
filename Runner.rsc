@@ -61,29 +61,34 @@ public void runTests() {
   duplicationRunner(fixtures);
 }
 
-public void runDuplication() {
+public void runDuplicationTests() {
   loc fixtures = |cwd:///specs/fixtures|;
-  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
-  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
-
-  duplicationRunner(fixtures);
-  /* duplicationTypeTwo(hsql, 6); */
+  result = duplicationTypeTwo(fixtures, 3);
+  runJSON(result, "fixtures.json");
 }
 
-public void runJSON(result) {
+public void runDuplicationHSQL() {
+  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  result = duplicationTypeTwo(hsql, 3);
+  runJSON(result, "hsqldb.json");
+}
+
+public void runDuplicationSmallSQL() {
   loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  result = duplicationTypeTwo(smallsql, 3);
+  runJSON(result, "smallsql.json");
+}
 
-  /* result = duplicationTypeTwo(smallsql, 6); */
-
+public void runJSON(result, filename) {
   JSONentries = "";
   for(entry <- result) {
     list[str] pattern = entry[0];
     list[lrel[loc, int]] matches = entry[1];
 
-    JSONpattern = ""; 
+    JSONpattern = "";
     for(pat <- pattern) {
-      str escaped = replaceAll(pat, "\"", "\'") + "\n";
-      
+      str escaped = replaceAll(pat, "\"", "\'");
+
       if(last(pattern) == pat) {
         JSONpattern += "\"<escaped>\"";
         continue;
@@ -133,9 +138,8 @@ public void runJSON(result) {
     }
   };
   JSONheader = "{\"files\": [<JSONentries>]}";
-  writeFile(|cwd:///visualization/src/json/| + "something.json", JSONheader);
+  writeFile(|cwd:///visualization/src/json/| + filename, JSONheader);
   /* print(JSONheader); */
-
 }
 
 public void printTimeTaken(datetime startTime, datetime endTime) {

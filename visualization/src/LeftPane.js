@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import File from './File';
 import Code from './Code';
+import Buttons from './Buttons';
 
 class LeftPane extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class LeftPane extends Component {
     this.hideSelected = this.hideSelected.bind(this);
 
     this.state = {
-      files: this.props.files,
+      files: [],
       selected: {
         method: {},
         loc: null
@@ -38,6 +39,12 @@ class LeftPane extends Component {
     });
   }
 
+  changeData(data) {
+    this.setState({
+      files: data.files
+    });
+  }
+
   renderCode() {
     if(this.state.selected) {
       return (
@@ -53,15 +60,16 @@ class LeftPane extends Component {
   renderFiles(files) {
     return files.map((file) => {
       return <File key={ file.loc }
-      file={ file }
-      changeHook={this.changeLeftSelected.bind(this)}
-      changeDupLocs={this.props.changeDupLocs} />;
+        file={ file }
+        changeHook={this.changeLeftSelected.bind(this)}
+        changeDupLocs={this.props.changeDupLocs} />;
     })
   }
 
   render() {
     return (
       <div className="left-pane">
+        <Buttons changeData={this.changeData.bind(this)} />
         { this.renderCode() }
         { this.renderFiles(this.state.files) }
       </div>

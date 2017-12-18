@@ -4,7 +4,7 @@
       "loc": "specs/fixtures/complexity/ComplexityUnits.java",
       "methods": [
         {
-          "name": "onlyIf()",
+          "name": "smallSQL()",
           "fromLine": 20,
           "toLine": 23,
           "dupLocs": [

@@ -24,6 +24,11 @@ body {
 
 .file-header, .duplication-header {
   padding-left: 10px;
+  margin-top: 10px;
+}
+
+.duplication-header {
+  margin-top: 50px;
 }
 
 .card {
@@ -62,4 +67,15 @@ body {
 
 .title-pane > .close-button {
   padding: 10px;
+}
+
+.top-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.top-buttons button {
+  padding: 5px;
+  margin: 5px 5px 5px 5px;
 }

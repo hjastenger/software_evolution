@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import LeftPane from './LeftPane';
 import RightPane from './RightPane';
-import data from './json/test.json';
 
 class App extends Component {
   constructor() {
@@ -9,7 +8,6 @@ class App extends Component {
 
     this.state = {
       dupLocs: [],
-      files: data.files
     };
   }
 

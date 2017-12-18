@@ -1,0 +1,47 @@
+{
+	"files": [
+    {
+      "loc": "specs/fixtures/complexity/ComplexityUnits.java",
+      "methods": [
+        {
+          "name": "HSQLdb()",
+          "fromLine": 20,
+          "toLine": 23,
+          "dupLocs": [
+            {
+              "name": "specs/fixtures/duplication/Duplication.java (20:23)",
+              "loc": "specs/fixtures/duplication/Duplication.java",
+              "fromLine": 20,
+              "toLine": 23
+            },
+            {
+              "name": "specs/fixtures/duplication/Duplication.java (75:81)",
+              "loc": "specs/fixtures/duplication/Duplication.java",
+              "fromLine": 75,
+              "toLine": 81
+            }
+          ]
+        },
+        {
+          "name": "singleCatch()",
+          "fromLine": 75,
+          "toLine": 81,
+          "dupLocs": [
+            {
+              "name": "specs/fixtures/duplication/TripleExample.java (20:23)",
+              "loc": "specs/fixtures/duplication/TripleExample.java",
+              "fromLine": 20,
+              "toLine": 23
+            },
+            {
+              "name": "specs/fixtures/duplication/TripleExample.java (75:81)",
+              "loc": "specs/fixtures/duplication/TripleExample.java",
+              "fromLine": 75,
+              "toLine": 81
+            }
+          ]
+        }
+      ]
+    }
+	]
+}

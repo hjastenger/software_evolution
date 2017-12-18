@@ -1,0 +1,6 @@
+{
+  "short_name": "Software Evolution Visualization",
+  "name": "Software Evolution Visualization",
+  "start_url": "./index.html",
+  "display": "standalone"
+}

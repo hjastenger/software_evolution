@@ -98,8 +98,10 @@ private void runJSON(result, filename) {
     list[str] patterns = [];
 
     for(pat <- pattern) {
-      str withoutQuotes = replaceAll(pat, "\"", "\\\"");
-      str withoutNewLine = replaceAll(withoutQuotes, "\n", "");
+      str trimmed = trim(pat);
+      str withoutQuotes = replaceAll(trimmed, "\"", " ");
+      str withoutTabs = replaceAll(withoutQuotes, "\t", " ");
+      str withoutNewLine = replaceAll(withoutTabs, "\n", " ");
       patterns += "\"<withoutNewLine>\"";
     };
 

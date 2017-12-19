@@ -19,7 +19,7 @@ class Card extends Component {
   render() {
     return (
       <div className="card" onClick={() => { this.openCodeViewer() }}>
-        { this.props.loc }
+        { this.state.loc + "(" + this.state.lines[0] + ", " + this.state.lines.slice(-1)[0] + ")"}
       </div>
     );
   }

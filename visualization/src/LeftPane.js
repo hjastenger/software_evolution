@@ -44,6 +44,20 @@ class LeftPane extends Component {
     });
   }
 
+  sortData(direction) {
+    let sorted = this.state.files.sort(function (a, b) {
+      if(direction === 'asc') {
+        return a.matches - b.matches;
+      } else {
+        return b.matches - a.matches;
+      }
+    });
+
+    this.setState({
+      files: sorted
+    });
+  }
+
   renderFiles(files) {
     return files.map((pattern) => {
       return <Pattern key={ uuidv4() }
@@ -56,7 +70,7 @@ class LeftPane extends Component {
   render() {
     return (
       <div className="left-pane">
-        <Buttons changeData={this.changeData.bind(this)} />
+        <Buttons changeData={this.changeData.bind(this)} sortData={this.sortData.bind(this)} />
         { this.renderFiles(this.state.files) }
       </div>
     );

@@ -30,12 +30,12 @@ import specs::complexity::ComplexityUnits;
 import specs::duplication::Duplication;
 
 public void runHSQL() {
-  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  loc hsql = |cwd:///projects/hsqldb-2.4.0|;
   runMetrics(hsql);
 }
 
 public void runSmall() {
-  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  loc smallsql = |cwd:///projects/smallsql-0.21|;
   runMetrics(smallsql);
 }
 
@@ -79,12 +79,12 @@ public void runDuplicationFixtures() {
 }
 
 public void runDuplicationHSQL() {
-  loc hsql = |cwd:///assignments/projects/hsqldb-2.4.0|;
+  loc hsql = |cwd:///projects/hsqldb-2.4.0|;
   runCodeDuplication(hsql, "hsqldb.json");
 }
 
 public void runDuplicationSmallSQL() {
-  loc smallsql = |cwd:///assignments/projects/smallsql-0.21|;
+  loc smallsql = |cwd:///projects/smallsql-0.21|;
   runCodeDuplication(smallsql, "smallsql.json");
 }
 

@@ -23,9 +23,10 @@ below steps to properly configure both components.
 To generate json data for the visualization part you need to do the following:
 1. Start Rascal REPL in root dir: `java -Xmx1G -Xss32m -jar <rascal_jar_location>`
 2. `import Runner;` to import the general runner module.
-  1. Run clone detection on fixtures: `runDuplicationTests()`
-  2. Run metrics on HSQLDB: `runDuplicationHSQL();`
-  3. Run metrics on SmallSQL: `runDuplicationSmallSQL();`
+  3. Run clone detection tests: `runDuplicationTests()`
+  1. Run clone detection on fixtures: `runDuplicationFixtures()`
+  2. Run clone detection on HSQLDB: `runDuplicationHSQL();`
+  3. Run clone detection on SmallSQL: `runDuplicationSmallSQL();`
 
 ### Visualization
 To get the visualization working you need to fulfill the below steps. Keep in

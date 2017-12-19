@@ -62,9 +62,10 @@ public void runTests() {
 }
 
 public void runCodeDuplication(loc path, str filename) {
-  println("Saving json to <filename>");
+  println("Starting on loc <path>...");
   result = duplicationTypeTwo(path, 3);
   runJSON(result, filename);
+  println("Saved results in visualization/src/json/<filename>");
 }
 
 public void runDuplicationTests() {

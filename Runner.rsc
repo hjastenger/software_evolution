@@ -90,25 +90,32 @@ public void runDuplicationSmallSQL() {
 
 private void runJSON(result, filename) {
   JSONentries = "";
+
+  int entryCount = 1;
   for(entry <- result) {
     list[str] pattern = entry[0];
     list[lrel[loc, int]] matches = entry[1];
 
     JSONpattern = "";
+    int patCount = 1;
+
     for(pat <- pattern) {
       str escaped = replaceAll(pat, "\"", "\'");
 
-      if(last(pattern) == pat) {
+      if(size(pattern) == patCount) {
         JSONpattern += "\"<escaped>\"";
-        continue;
+      } else {
+        JSONpattern += "\"<escaped>\",";
       }
-      JSONpattern += "\"<escaped>\",";
+      patCount += 1;
     };
+
     JSONpatternlines = "\"pattern\": [<JSONpattern>],";
     locations = "";
     JSONmatches = "\"matches\": <size(matches)>,";
     JSONnumberOfLines = "\"total_lines\": <size(matches)*size(pattern)>,";
 
+    int matchCount = 1;
     for(match <- matches) {
       list[int] linenumbers = [];
       loc filename = match[0][0];
@@ -119,32 +126,33 @@ private void runJSON(result, filename) {
         linenumbers += row[1];
       };
 
+      int lineCount = 1;
       for(linenumber <- linenumbers) {
-        if(last(linenumbers) == linenumber) {
+        if(size(linenumbers) == lineCount) {
           JSONlines += "<linenumber>";
-          continue;
+        } else {
+          JSONlines += "<linenumber>,";
         }
-        JSONlines += "<linenumber>,";
+        lineCount += 1;
       };
 
-      /* JSONlinenumber = "\"lines\": [<JSONlines>]"; */
-      if(last(matches) == match) {
+      if(size(matches) == matchCount) {
         locations += "{\"location\": \"<filename>\", \"lines\": [<JSONlines>]}";
       } else {
         locations += "{\"location\": \"<filename>\", \"lines\": [<JSONlines>]},";
       }
-
-      /* println(match[0]); */
+      matchCount += 1;
     };
 
     JSONrow = "{<JSONpatternlines> <JSONmatches> <JSONnumberOfLines> \"locations\": [<locations>]}";
-    if(last(result) == entry) {
+    if(size(result) == entryCount) {
       /* JSONentries += "{<JSONpatternlines> <JSONmatches>\"locations\": [<locations>]}"; */
       JSONentries += "<JSONrow>";
     } else {
       /* JSONentries += "{<JSONpatternlines> \"locations\": [<locations>]},"; */
       JSONentries += "<JSONrow>,";
     }
+    entryCount += 1;
   };
   JSONheader = "{\"files\": [<JSONentries>]}";
   writeFile(|cwd:///visualization/src/json/| + filename, JSONheader);

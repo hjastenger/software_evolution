@@ -26,6 +26,7 @@ public void duplicationTest(loc filename) {
   // result = duplication(sourceFile);
   // testComplexity(result, 7, "DuplicationTest");
   duplicationTypeTwo(filename, 4);
+  println();
 }
 
 public void tripleDuplicationTest(loc filename) {
@@ -34,6 +35,7 @@ public void tripleDuplicationTest(loc filename) {
   // result = duplicationPerFile(lines, "TripleExample");
   result = duplication(sourceFile);
   testComplexity(result, 14, "TripleExample");
+  println();
 }
 
 public void doubleDuplicationTest(loc filename) {
@@ -42,6 +44,7 @@ public void doubleDuplicationTest(loc filename) {
   // result = duplicationPerFile(lines, "NotImportantNameForCollision");
   result = duplication(sourceFile);
   testComplexity(result, 20, "NotImportantNameForCollision");
+  println();
 }
 
 public void normalisationTest(loc filename) {
@@ -71,6 +74,7 @@ public void normalisationTest(loc filename) {
 
   // Test paramsRename
   testContains("<normalised>", "int x, String x, char x, float x, boolean x", "paramsRename");
+  println();
 }
 
 public void typeTwoSimple(loc filename) {
@@ -87,15 +91,20 @@ public void typeTwoSimple(loc filename) {
   testContains(pattern[2], "third", "<cname> third attribute check");
   testContains(pattern[3], "}", "<cname> fifth attribute check");
 
+  println();
+
   assertEquality(firstMatch[0][1], 13, "<cname> line number check");
   assertEquality(firstMatch[1][1], 14, "<cname> line number check");
   assertEquality(firstMatch[2][1], 15, "<cname> line number check");
   assertEquality(firstMatch[3][1], 16, "<cname> line number check");
 
+  println();
+
   assertEquality(secondMatch[0][1], 19, "<cname> line number check");
   assertEquality(secondMatch[1][1], 20, "<cname> line number check");
   assertEquality(secondMatch[2][1], 21, "<cname> line number check");
   assertEquality(secondMatch[3][1], 22, "<cname> line number check");
+  println();
 }
 
 public void typeTwoExpandByOne(loc filename) {
@@ -109,11 +118,15 @@ public void typeTwoExpandByOne(loc filename) {
   assertEquality(size(result), 1, "<cname> a total of 1 patterns should be found");
   assertEquality(size(result[0][0]), 5, "<cname> length of the pattern should be 5");
 
+  println();
+
   testContains(pattern[0], "first", "<cname> first attribute check");
   testContains(pattern[1], "second", "<cname> second attribute check");
   testContains(pattern[2], "third", "<cname> third attribute check");
   testContains(pattern[3], "four", "<cname> fourth attribute check");
   testContains(pattern[4], "}", "<cname> fifth attribute check");
+
+  println();
 
   assertEquality(firstMatch[0][1], 7, "<cname> line number check");
   assertEquality(firstMatch[1][1], 8, "<cname> line number check");
@@ -121,11 +134,14 @@ public void typeTwoExpandByOne(loc filename) {
   assertEquality(firstMatch[3][1], 10, "<cname> line number check");
   assertEquality(firstMatch[4][1], 11, "<cname> line number check");
 
+  println();
+
   assertEquality(secondMatch[0][1], 17, "<cname> line number check");
   assertEquality(secondMatch[1][1], 18, "<cname> line number check");
   assertEquality(secondMatch[2][1], 19, "<cname> line number check");
   assertEquality(secondMatch[3][1], 20, "<cname> line number check");
   assertEquality(secondMatch[4][1], 21, "<cname> line number check");
+  println();
 }
 
 public void typeTwoExpandByTwo(loc filename) {
@@ -139,12 +155,16 @@ public void typeTwoExpandByTwo(loc filename) {
   assertEquality(size(result), 1, "<cname> a total of 1 patterns should be found");
   assertEquality(size(result[0][0]), 6, "<cname> length of the pattern should be 6");
 
+  println();
+
   testContains(pattern[0], "first", "<cname> first attribute check");
   testContains(pattern[1], "second", "<cname> second attribute check");
   testContains(pattern[2], "third", "<cname> third attribute check");
   testContains(pattern[3], "four", "<cname> fourth attribute check");
   testContains(pattern[4], "five", "<cname> fourth attribute check");
   testContains(pattern[5], "}", "<cname> fifth attribute check");
+
+  println();
 
   assertEquality(firstMatch[0][1], 7, "<cname> line number check");
   assertEquality(firstMatch[1][1], 8, "<cname> line number check");
@@ -153,12 +173,15 @@ public void typeTwoExpandByTwo(loc filename) {
   assertEquality(firstMatch[4][1], 11, "<cname> line number check");
   assertEquality(firstMatch[5][1], 12, "<cname> line number check");
 
+  println();
+
   assertEquality(secondMatch[0][1], 18, "<cname> line number check");
   assertEquality(secondMatch[1][1], 19, "<cname> line number check");
   assertEquality(secondMatch[2][1], 20, "<cname> line number check");
   assertEquality(secondMatch[3][1], 21, "<cname> line number check");
   assertEquality(secondMatch[4][1], 22, "<cname> line number check");
   assertEquality(secondMatch[5][1], 23, "<cname> line number check");
+  println();
 }
 
 public void typeTwoSubClassClone(loc filename) {
@@ -181,17 +204,23 @@ public void typeTwoSubClassClone(loc filename) {
   testContains(fivePattern[3], "four", "<cname> fourth attribute check");
   testContains(fivePattern[4], "}", "<cname> fifth attribute check");
 
+  println();
+
   assertEquality(firstMatch[0][1], 7, "<cname> line number check");
   assertEquality(firstMatch[1][1], 8, "<cname> line number check");
   assertEquality(firstMatch[2][1], 9, "<cname> line number check");
   assertEquality(firstMatch[3][1], 10, "<cname> line number check");
   assertEquality(firstMatch[4][1], 11, "<cname> line number check");
 
+  println();
+
   assertEquality(secondMatch[0][1], 17, "<cname> line number check");
   assertEquality(secondMatch[1][1], 18, "<cname> line number check");
   assertEquality(secondMatch[2][1], 19, "<cname> line number check");
   assertEquality(secondMatch[3][1], 20, "<cname> line number check");
   assertEquality(secondMatch[4][1], 21, "<cname> line number check");
+
+  println();
 
   fourMatch = filterL(result, bool(tuple[list[str], list[Match]] res) {
     return size(res[0]) == 4 && size(res[1]) == 3;
@@ -204,25 +233,34 @@ public void typeTwoSubClassClone(loc filename) {
   assertEquality(size(fourMatch), 1, "<cname> only one pattern with length 4 should contain 3 locs");
   assertEquality(size(fourPattern), 4, "<cname> the pattern with 3 locations should have a length of 4");
 
+  println();
+
   testContains(fourPattern[0], "second", "<cname> first attribute check");
   testContains(fourPattern[1], "third", "<cname> second attribute check");
   testContains(fourPattern[2], "four", "<cname> third attribute check");
   testContains(fourPattern[3], "}", "<cname> four attribute check");
+
+  println();
 
   assertEquality(firstFourMatch[0][1], 8, "<cname> first match check (1/4)");
   assertEquality(firstFourMatch[1][1], 9, "<cname> first match check (2/4)");
   assertEquality(firstFourMatch[2][1], 10, "<cname> first match check (3/4)");
   assertEquality(firstFourMatch[3][1], 11, "<cname> first match check (4/4)");
 
+  println();
+
   assertEquality(secondFourMatch[0][1], 18, "<cname> second match check (1/4)");
   assertEquality(secondFourMatch[1][1], 19, "<cname> second match check (2/4)");
   assertEquality(secondFourMatch[2][1], 20, "<cname> second match check (3/4)");
   assertEquality(secondFourMatch[3][1], 21, "<cname> second match check (4/4)");
 
+  println();
+
   assertEquality(thirdFourMatch[0][1], 24, "<cname> third match check (1/4)");
   assertEquality(thirdFourMatch[1][1], 25, "<cname> third match check (2/4)");
   assertEquality(thirdFourMatch[2][1], 26, "<cname> third match check (3/4)");
   assertEquality(thirdFourMatch[3][1], 27, "<cname> third match check (4/4)");
+  println();
 }
 
 list[&T] testables = [
@@ -239,4 +277,5 @@ list[&T] testables = [
 public void duplicationRunner(file) {
   println("<CLASS_NAME>:");
   mapF(testables, void (void(loc) fn) { fn(file); });
+  println();
 }

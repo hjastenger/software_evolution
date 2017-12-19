@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import File from './File';
-import Code from './Code';
+import Pattern from './Pattern';
 import Buttons from './Buttons';
+import uuidv4 from 'uuid/v4';
 
 class LeftPane extends Component {
   constructor(props) {
     super(props);
 
-    this.renderCode = this.renderCode.bind(this);
     this.renderFiles = this.renderFiles.bind(this);
     this.hideSelected = this.hideSelected.bind(this);
 
@@ -45,22 +44,10 @@ class LeftPane extends Component {
     });
   }
 
-  renderCode() {
-    if(this.state.selected) {
-      return (
-        <Code selected={ this.state.selected }
-          hideCallback={ this.hideSelected }
-          color="#99ffaf" />
-      );
-    } else {
-      return <div />;
-    }
-  }
-
   renderFiles(files) {
-    return files.map((file) => {
-      return <File key={ file.loc }
-        file={ file }
+    return files.map((pattern) => {
+      return <Pattern key={ uuidv4() }
+        pattern={ pattern }
         changeHook={this.changeLeftSelected.bind(this)}
         changeDupLocs={this.props.changeDupLocs} />;
     })
@@ -70,7 +57,6 @@ class LeftPane extends Component {
     return (
       <div className="left-pane">
         <Buttons changeData={this.changeData.bind(this)} />
-        { this.renderCode() }
         { this.renderFiles(this.state.files) }
       </div>
     );

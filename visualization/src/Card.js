@@ -5,26 +5,21 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      method: this.props.method,
+      lines: this.props.lines,
       loc: this.props.loc,
       changeHook: this.props.changeHook,
-      changeDupLocs: this.props.changeDupLocs,
       inLeftPane: this.props.inLeftPane || false
     }
   }
 
   openCodeViewer() {
     this.state.changeHook(this.state);
-
-    if(this.state.inLeftPane) {
-      this.state.changeDupLocs(this.props.method.dupLocs);
-    }
   }
 
   render() {
     return (
       <div className="card" onClick={() => { this.openCodeViewer() }}>
-        { this.props.method.name }
+        { this.props.loc }
       </div>
     );
   }

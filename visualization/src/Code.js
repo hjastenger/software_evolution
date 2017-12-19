@@ -10,8 +10,7 @@ class Code extends Component {
       name: null,
       loc: null,
       content: '<div />',
-      fromLine: null,
-      toLine: null,
+      lines: null,
       display: false,
       color: this.props.color
     };
@@ -19,10 +18,8 @@ class Code extends Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      name: newProps.selected.method.name,
       loc: newProps.selected.loc,
-      fromLine: newProps.selected.method.fromLine,
-      toLine: newProps.selected.method.toLine,
+      lines: newProps.selected.lines[0],
       display: true
     });
 
@@ -38,6 +35,8 @@ class Code extends Component {
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }
 
   render() {
+    console.log(this.state);
+
     return (
       this.state.name ?
         <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
@@ -52,7 +51,7 @@ class Code extends Component {
             wrapLines={true}
             showLineNumbers={true}
             lineStyle={lineNr => {
-              if (this.range(this.state.fromLine, this.state.toLine).includes(lineNr)) {
+              if (this.range(this.state.lines[0], this.state.lines.slice(-1)[0]).includes(lineNr)) {
                 return { backgroundColor: this.state.color };
               }
             }}

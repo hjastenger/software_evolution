@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from './Card';
 import Code from './Code';
+import uuidv4 from 'uuid/v4';
 
 class RightPane extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class RightPane extends Component {
     this.state = {
       dupLocs: [],
       selected: {
-        method: {},
+        lines: [],
         loc: null
       }
     }
@@ -28,7 +29,7 @@ class RightPane extends Component {
   changeRightSelected(props) {
     this.setState({
       selected: {
-        method: props.method,
+        lines: props.lines,
         loc: props.loc
       }
     });
@@ -59,11 +60,11 @@ class RightPane extends Component {
   }
 
   renderCards(cards) {
-    return cards.map((method) => {
+    return cards.map((duplicate) => {
       return <Card
-        key={ method.name }
-        method={ method }
-        loc={ method.loc }
+        key={ uuidv4() }
+        lines={ duplicate.lines }
+        loc={ duplicate.location }
         changeHook={ this.changeRightSelected.bind(this) }
       />
     });

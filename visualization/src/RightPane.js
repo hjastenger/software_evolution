@@ -37,13 +37,12 @@ class RightPane extends Component {
   }
 
   sortData(direction) {
-    let sorted = this.state.dupLocs.sort((a, b) => {
-      if(direction === 'asc') {
-        return a.location <= b.location;
-      } else {
-        return a.location > b.location;
-      }
-    });
+    let sorted;
+    if(direction === 'asc') {
+      sorted = this.state.dupLocs.sort();
+    } else {
+      sorted = this.state.dupLocs.reverse();
+    }
 
     this.setState({
       dupLocs: sorted

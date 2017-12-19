@@ -7,7 +7,6 @@ class Code extends Component {
     super(props);
 
     this.state = {
-      name: null,
       loc: null,
       content: '<div />',
       lines: null,
@@ -19,7 +18,7 @@ class Code extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       loc: newProps.selected.loc,
-      lines: newProps.selected.lines[0],
+      lines: newProps.selected.lines,
       display: true
     });
 
@@ -35,10 +34,8 @@ class Code extends Component {
   range(start, end) { return [...Array(1+end-start).keys()].map(v => start+v) }
 
   render() {
-    console.log(this.state);
-
     return (
-      this.state.name ?
+      this.state.loc ?
         <div className="code-content" style={{display: this.state.display ? 'block' : 'none'}}>
           <div className='title-pane'>
             <div className='title'>{this.state.name}</div>

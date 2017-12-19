@@ -113,7 +113,11 @@ private void runJSON(result, filename) {
 
     for(match <- matches) {
       list[int] linenumbers = [];
-      loc filename = match[0][0];
+      str filename = "<match[0][0]>";
+      str filterTiles = replaceAll(filename, "|", "");
+      str filteredFileName = replaceAll(filterTiles, "cwd://", "");
+
+      println(filteredFileName);
 
       list[str] lines = [];
 
@@ -125,7 +129,7 @@ private void runJSON(result, filename) {
         lines += "<linenumber>";
       };
 
-      locations += "{\"location\": \"<filename>\", \"lines\": [" + intercalate(",", lines) + "]}";
+      locations += "{\"location\": \"<filteredFileName>\", \"lines\": [" + intercalate(",", lines) + "]}";
     };
 
     row = "{<patternLines> <totalMatches> <numberOfLines> \"locations\": [" + intercalate(",", locations) + "]}";

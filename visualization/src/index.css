@@ -17,6 +17,7 @@ body {
 
 .left-pane, .right-pane {
   flex: 49.9%;
+  max-width: 49.9%;
   flex-direction: row;
   flex-wrap: wrap;
   height: 100vh;

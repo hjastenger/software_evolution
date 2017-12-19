@@ -168,7 +168,6 @@ public void typeTwoSubClassClone(loc filename) {
 
   assertEquality(size(result), 2, "<cname> a total of 2 patterns should be found");
 
-  println(result[0][0]);
   fiveMatch = filterL(result, bool(tuple[list[str], list[Match]] res) { return size(res[0]) == 5; });
   list[str] fivePattern = fiveMatch[0][0];
   Match firstMatch = fiveMatch[0][1][0];

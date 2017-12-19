@@ -51,7 +51,7 @@ public int duplication(loc project) {
       dupContainer[windowLines] = [lineNumbers];
     }
   });
-  
+
   MatchList duplicates = filterL(dupContainer, bool(Matches matches) {
     return size(matches) >= 2;
   });
@@ -89,7 +89,6 @@ public lrel[Pattern, Matches] typeTwoPerFile(loc file, int windowSize) {
   list[SourceLine] lines = [*[<x,y,ys> | <y,ys> <- mappedSource[x]] | x <- mappedSource];
   list[list[SourceLine]] windows = getWindows(lines, windowSize);
 
-  println("done parsing");
   MatchList dupContainer = ();
 
   mapF(windows, void (list[SourceLine] window) {
@@ -102,21 +101,18 @@ public lrel[Pattern, Matches] typeTwoPerFile(loc file, int windowSize) {
       dupContainer[windowLines] = [lineNumbers];
     }
   });
-  
+
   MatchList duplicates = filterL(dupContainer, bool(Matches matches) {
     return size(matches) >= 2;
   });
 
-  println("Done working throught initial window size");
-
   duplicates = expand(duplicates, windowSize, mappedSource);
-   
+
   result = [<x,duplicates[x]> | x <- duplicates];
   return result;
 }
 
 public lrel[Pattern, Matches] duplicationTypeTwo(loc project, int windowSize) {
-  startTime = now();
   list[loc] files = [f| /file(f) <- crawl(project), f.extension == "java"];
   map[loc, lrel[int, str]] mappedSource = ();
 
@@ -128,7 +124,6 @@ public lrel[Pattern, Matches] duplicationTypeTwo(loc project, int windowSize) {
   list[SourceLine] lines = [*[<x,y,ys> | <y,ys> <- mappedSource[x]] | x <- mappedSource];
   list[list[SourceLine]] windows = getWindows(lines, windowSize);
 
-  println("Done parsing");
   MatchList dupContainer = ();
 
   mapF(windows, void (list[SourceLine] window) {
@@ -141,17 +136,14 @@ public lrel[Pattern, Matches] duplicationTypeTwo(loc project, int windowSize) {
       dupContainer[windowLines] = [lineNumbers];
     }
   });
-  
+
   MatchList duplicates = filterL(dupContainer, bool(Matches matches) {
     return size(matches) >= 2;
   });
 
-  println("Done working throught initial window size");
-
   duplicates = expand(duplicates, windowSize, mappedSource);
-   
+
   result = [<x,duplicates[x]> | x <- duplicates];
-  println("Finished in <now()-startTime>");
   return result;
 }
 

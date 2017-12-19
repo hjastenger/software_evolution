@@ -114,8 +114,6 @@ public MatchList expand(MatchList matchList, int windowSize, map[loc, lrel[int, 
       }
     };
 
-    print("Expanding windows time: <now()-startOne>.");
-
     return matchList + expand(newList, windowSize+1, sourceMapper);
   }
 }

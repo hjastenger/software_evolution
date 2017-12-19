@@ -4,11 +4,13 @@ import smallsql from './json/smallsql.json'
 // import hsqldb from './json/hsqldb.json';
 
 class Buttons extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      order: 'asc'
+      order: 'asc',
+      inLeftPane: this.props.inLeftPane,
+      searchInput: '',
     }
   }
 
@@ -23,11 +25,33 @@ class Buttons extends Component {
     });
   }
 
+  searchData() {
+    this.props.searchData(this.state.searchInput);
+  }
+
+  updateInputValue(evt) {
+    this.setState({
+      searchInput: evt.target.value
+    });
+  }
+
+  leftPaneButtons() {
+    if(this.state.inLeftPane) {
+      return (
+        <React.Fragment>
+          <button onClick={() => { this.changeData(fixtures) }}> Fixtures </button>
+          <button onClick={() => { this.changeData(smallsql) }}> SmallSQL </button>
+          <input value={this.state.searchInput} placeholder="zoeken" onChange={(evt) => { this.updateInputValue(evt) }} />
+          <button onClick={() => { this.searchData() }}> Search </button>
+        </React.Fragment>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="top-buttons">
-        <button onClick={() => { this.changeData(fixtures) }}> Fixtures </button>
-        <button onClick={() => { this.changeData(smallsql) }}> SmallSQL </button>
+        { this.leftPaneButtons() }
         <button onClick={() => { this.sortIt() }}> Sort { this.state.order } </button>
       </div>
     );

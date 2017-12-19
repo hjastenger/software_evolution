@@ -117,8 +117,6 @@ private void runJSON(result, filename) {
       str filterTiles = replaceAll(filename, "|", "");
       str filteredFileName = replaceAll(filterTiles, "cwd://", "");
 
-      println(filteredFileName);
-
       list[str] lines = [];
 
       for(m <- match) {

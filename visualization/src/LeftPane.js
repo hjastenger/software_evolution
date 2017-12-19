@@ -45,7 +45,7 @@ class LeftPane extends Component {
   }
 
   sortData(direction) {
-    let sorted = this.state.files.sort(function (a, b) {
+    let sorted = this.state.files.sort((a, b) => {
       if(direction === 'asc') {
         return a.matches - b.matches;
       } else {
@@ -56,6 +56,16 @@ class LeftPane extends Component {
     this.setState({
       files: sorted
     });
+  }
+
+  searchData(data) {
+    let filtered = this.state.files.filter((f) => {
+      return f.pattern.join("").includes(data);
+    });
+
+    this.setState({
+      files: filtered
+    })
   }
 
   renderFiles(files) {
@@ -70,7 +80,7 @@ class LeftPane extends Component {
   render() {
     return (
       <div className="left-pane">
-        <Buttons changeData={this.changeData.bind(this)} sortData={this.sortData.bind(this)} />
+        <Buttons inLeftPane={true} changeData={this.changeData.bind(this)} sortData={this.sortData.bind(this)} searchData={this.searchData.bind(this)}/>
         { this.renderFiles(this.state.files) }
       </div>
     );

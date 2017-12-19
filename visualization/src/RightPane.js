@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from './Card';
 import Code from './Code';
+import Buttons from './Buttons';
 import uuidv4 from 'uuid/v4';
 
 class RightPane extends Component {
@@ -35,6 +36,20 @@ class RightPane extends Component {
     });
   }
 
+  sortData(direction) {
+    let sorted = this.state.dupLocs.sort((a, b) => {
+      if(direction === 'asc') {
+        return a.location <= b.location;
+      } else {
+        return a.location > b.location;
+      }
+    });
+
+    this.setState({
+      dupLocs: sorted
+    });
+  }
+
   isNotEmpty(obj) {
     return Object.keys(obj).length > 0 && obj.constructor === Object;
   }
@@ -59,8 +74,8 @@ class RightPane extends Component {
     }
   }
 
-  renderCards(cards) {
-    return cards.map((duplicate) => {
+  renderCards(dupLocs) {
+    return dupLocs.map((duplicate) => {
       return <Card
         key={ uuidv4() }
         lines={ duplicate.lines }
@@ -73,6 +88,7 @@ class RightPane extends Component {
   render() {
     return (
       <div className="right-pane">
+        <Buttons inLeftPane={false} sortData={this.sortData.bind(this)} />
         { this.renderCode() }
         <h2 className='duplication-header'>Duplication</h2>
         { this.renderCards(this.state.dupLocs) }

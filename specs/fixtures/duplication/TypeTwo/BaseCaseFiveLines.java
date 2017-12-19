@@ -5,19 +5,19 @@ public class BaseCaseFiveLines {
   }
 
   public void simpleDuplication() {
-    System.out.println("first");
-    System.out.println("second");
-    System.out.println("third");
-    System.out.println("four");
+    first();
+    second();
+    third();
+    fourth();
   }
 
   /* Still working with a multiline comments?
    *
    */
   public void simpleDuplicationTwo() {
-    System.out.println("first");
-    System.out.println("second");
-    System.out.println("third");
-    System.out.println("four");
+    first();
+    second();
+    third();
+    fourth();
   }
 }

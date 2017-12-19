@@ -14,6 +14,8 @@ import assignments::metrics::LinesPerFile;
 import assignments::helpers::Defaults;
 import assignments::helpers::Duplication;
 
+import lang::java::\syntax::Java15;
+
 import specs::helpers::Loc;
 import specs::helpers::M3;
 
@@ -123,7 +125,7 @@ public void typeTwoExpandByOne(loc filename) {
   testContains(pattern[0], "first", "<cname> first attribute check");
   testContains(pattern[1], "second", "<cname> second attribute check");
   testContains(pattern[2], "third", "<cname> third attribute check");
-  testContains(pattern[3], "four", "<cname> fourth attribute check");
+  testContains(pattern[3], "fourth", "<cname> fourth attribute check");
   testContains(pattern[4], "}", "<cname> fifth attribute check");
 
   println();
@@ -160,8 +162,8 @@ public void typeTwoExpandByTwo(loc filename) {
   testContains(pattern[0], "first", "<cname> first attribute check");
   testContains(pattern[1], "second", "<cname> second attribute check");
   testContains(pattern[2], "third", "<cname> third attribute check");
-  testContains(pattern[3], "four", "<cname> fourth attribute check");
-  testContains(pattern[4], "five", "<cname> fourth attribute check");
+  testContains(pattern[3], "fourth", "<cname> fourth attribute check");
+  testContains(pattern[4], "fifth", "<cname> fourth attribute check");
   testContains(pattern[5], "}", "<cname> fifth attribute check");
 
   println();
@@ -201,7 +203,7 @@ public void typeTwoSubClassClone(loc filename) {
   testContains(fivePattern[0], "first", "<cname> first attribute check");
   testContains(fivePattern[1], "second", "<cname> second attribute check");
   testContains(fivePattern[2], "third", "<cname> third attribute check");
-  testContains(fivePattern[3], "four", "<cname> fourth attribute check");
+  testContains(fivePattern[3], "fourth", "<cname> fourth attribute check");
   testContains(fivePattern[4], "}", "<cname> fifth attribute check");
 
   println();
@@ -237,7 +239,7 @@ public void typeTwoSubClassClone(loc filename) {
 
   testContains(fourPattern[0], "second", "<cname> first attribute check");
   testContains(fourPattern[1], "third", "<cname> second attribute check");
-  testContains(fourPattern[2], "four", "<cname> third attribute check");
+  testContains(fourPattern[2], "fourth", "<cname> third attribute check");
   testContains(fourPattern[3], "}", "<cname> four attribute check");
 
   println();
@@ -264,10 +266,10 @@ public void typeTwoSubClassClone(loc filename) {
 }
 
 list[&T] testables = [
-  // normalisationTest
+  normalisationTest,
   duplicationTest,
-  // // doubleDuplicationTest,
-  // // tripleDuplicationTest,
+  // doubleDuplicationTest,
+  // tripleDuplicationTest,
   typeTwoSimple,
   typeTwoSubClassClone,
   typeTwoExpandByOne,

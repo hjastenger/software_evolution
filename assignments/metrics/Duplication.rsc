@@ -64,7 +64,7 @@ public int duplication(loc project) {
   return size(toSet(values));
 }
 
-public tuple[loc, lrel[int, str]] getSourceLines(loc fileLoc, int  typeClone) {
+public tuple[loc, lrel[int, str]] getSourceLines(loc fileLoc, int typeClone) {
   Tree tree = parse(#start[CompilationUnit], fileLoc, allowAmbiguity=true);
   list[str] lines = [];
 

@@ -48,7 +48,7 @@ class Code extends Component {
             wrapLines={true}
             showLineNumbers={true}
             lineStyle={lineNr => {
-              if (this.range(this.state.lines[0], this.state.lines.slice(-1)[0]).includes(lineNr)) {
+              if (this.range(this.state.lines[0]+1, this.state.lines.slice(-1)[0]+1).includes(lineNr)) {
                 return { backgroundColor: this.state.color };
               }
             }}

@@ -79,7 +79,7 @@ public void runDuplicationFixtures() {
 }
 
 public void runDuplicationHSQL() {
-  loc hsql = |cwd:///projects/hsqldb-2.4.0|;
+  loc hsql = |cwd:///projects/hsqldb-1.8.0|;
   runCodeDuplication(hsql, "hsqldb.json");
 }
 
